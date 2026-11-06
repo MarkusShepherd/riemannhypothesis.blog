@@ -1,0 +1,284 @@
+---
+title: What Do Ten Thousand AI Agents Actually Do?
+author: Markus Shepherd
+type: post
+date: 2026-11-06T12:00:00+02:00
+draft: true
+url: /2026/11/what-do-ten-thousand-ai-agents-actually-do/
+categories:
+  - Feature
+tags:
+  - AI
+  - Analytic number theory
+  - Squarefree numbers
+  - Mathematical research
+---
+
+There has been rather a lot of excitement about AI doing mathematics lately. In September, OpenAI claimed a solution to a version of the Navier–Stokes Millennium Prize Problem; in October came a claimed proof that Landau–Siegel zeros do not exist. Those are quite some claims to put between the usual product announcements.
+
+My immediate question was: how does this actually work?
+
+Presumably there is more to it than opening ChatGPT and typing:
+
+> Solve Navier–Stokes. Think really hard. No mistakes!
+
+OpenAI's [account of its Navier–Stokes effort](https://openai.com/index/navier-stokes-solution/) describes an internal model, roughly 10,000 concurrent agents in the successful group, 88 hours to a proposed solution, and a further 17 hours of Lean formalisation and verification. Groups explored different problem variants; an intermediate Euler result was fed back into the search; Codex consolidated insights between groups. That is a substantial research process behind a short description of a breakthrough.
+
+The Siegel-zero story also had a subsequent human exposition and simplification, including papers by [William Banks](https://arxiv.org/abs/2610.15483) and [Bryce Kerr](https://arxiv.org/abs/2610.21099). I am not going to adjudicate either claimed breakthrough here. What interested me was the work between posing a question and obtaining an argument someone could examine.
+
+What is an *agent*, in this setting? What do thousands of them do that one cannot? Who chooses what they work on, and how do their answers turn into a proof? Could an ordinary person experiment with something similar using the tools available on a normal subscription?
+
+As it happened, I had a suitable problem lying around. It was fifteen years old.
+
+<!-- more -->
+
+## Two papers and a very familiar problem
+
+In 2011, my supervisor gave me two papers. One concerned primes in arithmetic progressions with moduli taken from polynomial sequences; the other concerned the variance of squarefree numbers in arithmetic progressions. My assignment was to combine the techniques.
+
+That became [my master's thesis](/schepke_distribution_of_squarefree_numbers_in_arithmetic_progressions.pdf).
+
+This needs a little perspective. My advisor could probably have proved the result over a weekend. The point of giving it to me was that I would learn the techniques: understand the papers, see how their arguments fit together, and work through the places where the combination required something new.
+
+It seemed a good test for AI for much the same reason. This was a problem about adapting established methods, with relevant literature to read and a reasonably concrete target. I wanted to learn how to organise an attempt, including what would go wrong.
+
+For readers who would like to know what the machines were actually asked, here is the mathematical version. A number is *squarefree* if no square greater than one divides it: 30 is squarefree, whereas 12 is not, since it is divisible by 4. Write \\(Q(x;q,l)\\) for the number of squarefree positive integers up to \\(x\\) that are congruent to \\(l\\) modulo \\(q\\).
+
+There is a known limiting density \\(g(q,l)\\) in each progression. We look at the discrepancy
+
+\\[
+E(x;q,l)=Q(x;q,l)-g(q,l)x.
+\\]
+
+Squaring these discrepancies and adding them over residue classes measures how uneven the distribution is. My problem restricted the moduli to polynomial values, such as \\(q=k^2+1\\), and studied
+
+\\[
+V_f(x,y)=\sum_{1\le k\le y} f'(k)
+\sum_{l=1}^{f(k)} E(x;f(k),l)^2,
+\qquad f(y)\le x.
+\\]
+
+The weight \\(f'(k)\\) compensates for the spacing between successive polynomial values. The question is to obtain an asymptotic formula: a main term, an explicit constant depending on \\(f\\), and an error estimate small enough to make the formula informative.
+
+You do not need to understand the formula to follow the experiment. It matters that there are several distinct things to get right. Predicting the right scale is one task; finding the constant is another; proving a sufficiently small error over the claimed range is another again.
+
+## An agent is a process with a job
+
+The first useful answer to my questions was almost disappointingly mundane.
+
+In [the harness we built](https://gitlab.com/mshepherd/squarefree-numbers), an agent is a fresh invocation of a command-line model, using Claude Code or Codex. The underlying commands are `claude -p` and `codex exec`. A Python driver prepares the working folder, supplies a prompt and selected files, starts the process, and collects what it produces.
+
+There is no little mathematician permanently living in the computer. The role comes from the instructions and the material supplied to that invocation. A planner gets a planning task. A prover gets one proposition to prove. A referee gets a statement and a proposed proof to scrutinise.
+
+A prover's folder looks approximately like this:
+
+~~~text
+problem.md       the overall mathematical question
+statement.md     this agent's proposition
+deps/            statements it may assume
+papers/          the supplied literature
+~~~
+
+Its output is a proof file, or a report that the statement is defective. A referee receives a separate copy of the relevant inputs. It does not see the prover's conversation or the other referee's verdict.
+
+The agents in my harness do not chat with one another. The driver copies files between stages; those copies determine what each model can know from the experiment. Persistent state lives in those files, so the next session can be fresh.
+
+This already explains a good deal of the apparent mystery. You can arrange for several sessions to explore different approaches, have other sessions check their work, and preserve intermediate results for later use. You decide what information moves between them.
+
+It also makes the word *swarm* rather grand for my version. I limited the system to two simultaneous agent invocations, largely because I was working within ordinary subscription limits. Over the course of the experiment there were many sessions, with different roles. Two at a time was quite enough to keep me occupied.
+
+This was my own small workflow, rather than a reconstruction of OpenAI's system. Its published account describes communicating groups and redistribution of intermediate results; mine used explicit file handoffs and a mostly fixed sequence of stages. The transferable idea is that the arrangement of the work is itself something you can design.
+
+## First find out what to ask the provers
+
+The tempting place to start is “prove the theorem”. We put several stages before that.
+
+Fresh models were first asked what they already knew about the problem. My thesis is online, and a later paper by Fabian Dehnert treats the same topic. Asking a model to rediscover an answer it has just retrieved would be a rather different experiment. Neither a failure to recall a result nor a different proof strategy can establish that it was absent from training data, but the probes at least recorded what the models volunteered.
+
+We also restricted the usable literature to works from 2010 or earlier, plus the explicitly supplied papers, including the 2011 Brüdern–Wooley paper. My thesis and Dehnert's work were excluded. There were transcript scans for excluded sources and restrictions on tools, but the real runs used host directories rather than isolated containers. Search snippets did sometimes contain excluded titles or links. This was an attempt to preserve and audit independence, with practical limitations.
+
+Next came numerical experiments. Two agents independently wrote code to calculate the variance for three polynomials, including \\(k^2+1\\), at increasingly large values of \\(x\\). The larger computation reached \\(256{,}000{,}000\\). Operator sessions compared the outputs with each other, checked them against direct counts in small cases, and reran the code.
+
+That supplied a useful constraint on the mathematics. A proof predicting twice the observed leading constant deserved immediate investigation.
+
+There was a subtlety even here: exact counts do not give an exact limiting constant. Lower-order effects depend on the ratio \\(f(y)/x\\). Increasing \\(x\\) while keeping that ratio fixed does not make all those effects disappear. Extrapolating the constant was a separate modelling task, with uncertainty and possible bias.
+
+Alongside the computation, librarian agents searched for relevant permitted literature. I supplied papers I could obtain, including through Cambridge Core. The eventual corpus was considerably larger than the original pair.
+
+Then the planners began. In the neutral experiment, two models each received four strategy hints: start from Vaughan, try a Dirichlet-series approach, seek the simplest rigorous argument, or proceed without an additional hint. “Neutral” here means the prompts did not encode the critiques of my thesis; the problem statement and supplied literature still gave the models substantial direction.
+
+The planners had to propose a theorem and break its proof into explicit propositions. Each proposition needed its assumptions, parameter ranges, error terms, dependencies and citations. Planners and integrators could see the accepted numerical evidence; provers and proposition referees did not receive those targets.
+
+That level of detail is essential for analytic number theory. Suppose a lemma gives an error of size \\(x^{2/3}\\) for each shift \\(h\\). If another step adds the error over \\(H\\) shifts, the available bound is now \\(Hx^{2/3}\\). Forgetting the length of a sum can turn an impressive-looking theorem into an unsupported claim.
+
+A proposition therefore acts as a contract: this is exactly what the next part of the proof may assume. The dependency graph also lets separate provers work simultaneously. They receive the statements of the lemmas they need, even while those lemmas are being proved elsewhere.
+
+The planning stage caught a problem in the specification itself. We had allowed rational-coefficient polynomials that take integer values. For such a polynomial, its value modulo \\(m\\) need not depend only on its input modulo \\(m\\). For example,
+
+\\[
+f(t)=\frac{t(t+1)}2+1
+\\]
+
+has \\(f(0)=1\\) and \\(f(2)=4\\): the inputs agree modulo 2, the outputs do not. That broke the naive definition of a root count used in the plans.
+
+I chose to restrict the problem to integer-coefficient polynomials, and we restarted. The agents had helped correct the question before attempting to prove the answer.
+
+## Prove, object, assemble, repeat
+
+Once a plan was selected, the driver started one proof task per proposition.
+
+Each completed proof went to two fresh referee sessions, one from each model family. The referee prompt asked them to look for errors, check hypotheses against the supplied papers, track uniformity and the lengths of summed errors, and verify that dependencies were used exactly as stated.
+
+Their verdicts were structured data, so the driver could decide what to do next. Conceptually, the loop was:
+
+~~~text
+ask a prover for a proof
+send the statement and proof to two separate referees
+if both pass:
+    preserve the approved proof
+else:
+    send the proof and objections into another attempt
+~~~
+
+There was also an escape hatch for a prover to say that its assigned proposition was false or ill-posed. A system that insists on receiving a proof of everything it asks is inviting the models to invent one.
+
+If a proposition remained stuck, a further role could examine approaches from other plans and suggest a bridge. We never used that stage in a completed run. Both completed experiments eventually had every proposition pass its two referees in the first mathematical review round.
+
+That sounds wonderfully reassuring. Later checking still found local errors, including an auxiliary convergence statement that was too strong. Two model passes are useful evidence, and fresh contexts prevent some forms of information sharing. They do not make the models statistically independent or give their verdicts the status of formal proof verification.
+
+The next stage was integration. Two agents separately assembled the approved propositions, checked that their ranges and error estimates fitted together, stated the theorem actually obtained, and compared its constant with the numerical evidence.
+
+This was two checks of one collection of proposition proofs. It was not two independent discoveries of the whole argument.
+
+Finally came a writer: turn the archived proof work into a readable LaTeX manuscript, with explanations and numerical tables, regenerate the computations, compile the document, and submit it to two more reviewers. Their comments fed another writing round.
+
+The extra review was useful. It also demonstrated how far there is to go between “all propositions passed” and a complete, accurately explained document.
+
+## What “human in the loop” meant
+
+At several points the procedure called for a human decision: approve numerical evidence, settle the literature, choose a plan, accept a manuscript.
+
+I should be honest about what I contributed at those checkpoints.
+
+I read the plans—or skimmed them, more honestly—but I was poorly equipped to assess some of their most consequential choices. How much would be gained by averaging over one variable before another? Was the proposed contour shift plausible? How difficult would it be to repair a particular bound?
+
+I could ask those questions. Mostly, I asked another AI session for its judgment.
+
+The selected neutral plan came from Claude; the recommendation I used to choose it came from Codex. Similar separate sessions assessed the completeness of the proofs, interpreted referee objections, and compared the write-ups with my thesis. There was a layer of AI advice around the formal harness as well as the AI work inside it.
+
+I retained control over what we attempted and what actions were allowed. But mathematical judgment was extensively delegated. Calling every approval an expert human verification would give a misleading impression of the experiment.
+
+This was also where the return to mathematics became more complicated than a pleasant exercise in nostalgia.
+
+It was wonderful to spend time with pure mathematics again. It was disconcerting to realise how far away that world had slipped. Relearning the circle method well enough to make confident judgments would require substantial work. Reading the plans made me wonder how thoroughly I had understood the underlying structures even when I wrote the thesis.
+
+The ease with which the models took my old work apart compounded that feeling. An eloquent critique is itself something to check, of course. Still, watching a model immediately point to a passage I would need hours to reconstruct was quite an experience.
+
+Fifteen years is a long time. Opening the old PDF did not restore the mathematical fluency I remembered having.
+
+## What came out?
+
+There were four archived experiments, including an early attempt before the literature cutoff and the abandoned rational-coefficient version. Two reached completed proof and integration stages, and both eventually produced write-ups that I accepted.
+
+The [neutral run](https://gitlab.com/mshepherd/squarefree-numbers/-/tree/main/writeups/zt-neutral) used an elementary approach based on correlations between pairs of squarefree numbers, followed by averaging over polynomial values. It obtained the main-term shape
+
+\\[
+V_f(x,y)\sim C_f\sqrt{x}\,f(y)^{3/2}
+\\]
+
+in the range
+
+\\[
+x^{7/9+\delta}\le f(y)\le x^{1-\delta},
+\qquad 0<\delta<1/9,
+\\]
+
+under the polynomial assumptions in the problem. This was the same headline lower threshold reached in the earlier single-chat baselines, before the full harness was run. Much of the harness's contribution was developing, checking and preserving the argument around that result.
+
+Its nine proposition proofs were all written by Claude Sonnet. Codex contributed planning, numerical computation, refereeing and integration. Although both providers were configured as provers, the default rotated them by *round*: every proposition began with Claude, and everything passed before a second round. I only fully appreciated the consequence when attempting the next run.
+
+For the [second completed experiment](https://gitlab.com/mshepherd/squarefree-numbers/-/tree/main/writeups/zt-thesis-plan), I had an operator read my thesis and write a light hint encouraging the combination of Vaughan and Brüdern–Wooley. That makes it a thesis-guided comparison, distinct from the neutral run. We reused the accepted numerics and literature.
+
+Codex Sol wrote its seven final proposition proofs. The result had a more detailed formula describing behaviour when \\(f(y)\\) is comparable with \\(x\\), but a narrower range for the simple power-law asymptotic. For quadratic polynomials, its lower threshold was \\(x^{19/21+\delta}\\), compared with \\(x^{7/9+\delta}\\) in the neutral run.
+
+Following something closer to my old route had changed the trade-off rather than simply improving the answer.
+
+Neither run reproduced the sharper range claimed in my thesis. That comparison also became awkward, because the AI readings had flagged gaps in the thesis's argument. My printed result could not simply serve as an unquestioned benchmark.
+
+There was one particularly concrete correction. The thesis used the residue of \\(\zeta(2s+4)\\) at \\(s=-3/2\\) as though it were 1. It is \\(1/2\\): the change of variable contributes a factor of two. That propagated into the leading constant.
+
+The [comparison and numerical checks](https://gitlab.com/mshepherd/riemannhypothesis.blog/-/work_items/4#note_4130461384) supported about \\(0.138083\\) for \\(f(k)=k^2+1\\), rather than the printed \\(0.276165\\). Both completed experiments obtained the corrected value. A comparison following the single-chat baselines had already exposed the discrepancy.
+
+I have not independently reconstructed every proof in these packages. “Accepted” records my decision about the experiment and the manuscript, informed largely by further AI assessments. No formal proof checker verified our results.
+
+## The less glamorous part of the swarm
+
+The proof and review stage of the neutral run took about 23 minutes. Planning took about an hour; the two integrations took another fourteen minutes.
+
+The project took considerably longer.
+
+The initial scaffold grew through 24 merge requests. We fixed tool permissions that did not mean what their names suggested, shell settings that gave the providers different Python environments, missing archive files, and failures to resume completed work sensibly.
+
+Usage limits were a recurring interruption. A failed referee call could also cause an incomplete proof round to be restarted, repeating work that had already succeeded. A machine agreeing that a theorem was correct was sometimes easier to obtain than a workflow that remembered what had happened before a quota reset.
+
+Some frustration was much more basic. Coding assistants repeatedly inferred actions I had not authorised, including commits and a push. They overcomplicated routine tasks, misunderstood instructions and occasionally removed functionality I wanted to keep. Building the harness was itself an exercise in supervising imperfect agents.
+
+There is a lesson here about what an impressive mathematical performance does and does not tell you about the surrounding software work. A model can reason usefully about a difficult proof and still make a mess of a straightforward operational instruction.
+
+The accounting also deserves some care. Both providers were used through $20 subscription plans. Claude's CLI nevertheless reports a dollar figure resembling API-equivalent usage; that is not an additional invoice.
+
+Across the [main historical ledgers](https://gitlab.com/mshepherd/squarefree-numbers/-/tree/main/archive), including abandoned attempts and the write-up stages, there were **141 invocations, of which 20 failed**, about **$166.22 in Claude-reported usage**, and about **632,000 Codex output tokens**.[^accounting]
+
+The two write-up stages alone accounted for about $103 of the Claude figure. For comparison, the entire neutral research run, including numerics, planning, proof, review and integration, accounted for about $23, plus 160,000 Codex output tokens. Those figures exclude the surrounding operator sessions and my time.
+
+The binding constraint was often waiting for subscription usage to reset. The money-like counter, the number of tokens, elapsed time and the amount of human attention describe different parts of the cost.
+
+The manuscript reviewers also illustrated the limits of automating acceptance. They found real mathematical and reporting issues, but eventually one remaining objection required *my* authorisation of a corrected auxiliary statement. Another writing round could not manufacture that authorisation. I accepted the neutral manuscript at round four with the reviewers' remaining objections preserved. The guided manuscript reached two passing reviews at round five before I accepted it.
+
+Having an explicit record of those decisions is more informative than smoothing everything into “the AI wrote a proof and the reviewers approved it”.
+
+## Beyond a single prompt
+
+What I wanted to understand at the beginning now feels much more concrete.
+
+A model session can search for an approach. Another can develop a precisely stated piece of it. Other sessions can inspect that piece without inheriting the first session's whole conversation. Code can test identities and examples. A driver can retain successful intermediate work and arrange the next task.
+
+You can experiment with those choices yourself. The practical starting point could be one small claim, a written proposed solution, and a fresh session asked to find a specific counterexample or missing assumption. Then inspect what the review actually checked. That is already an experiment in organising work beyond a single conversation.
+
+For a larger project, the useful questions become: what intermediate output would make progress inspectable? What assumptions must the next step receive? What can be checked by a calculation or another external test? What should happen when the proposed statement turns out to be wrong?
+
+Those questions travel beyond mathematics. A decomposition into proposals, explicit assumptions, tests and revision could organise other kinds of investigation too. The checks will differ, and agreement between models will remain much weaker evidence than a check against the world.
+
+Different models, versions and effort settings give further choices. The completed experiments used Claude Opus 5.5, Claude Sonnet 5.5 and Codex's `gpt-6.1-sol`, mostly at high effort. “High” is a provider's setting, not a common unit of reasoning, and a cheaper model writing a proof that more expensive models reviewed was a useful configuration. Our scheduling accident also showed that the configuration file alone does not tell you who actually did the work.
+
+I would be reluctant to claim that this setup was optimal. The single-chat baselines had already found the neutral run's headline range. What I gained was a much clearer picture of the process and its failure modes, together with a record that could be examined.
+
+That is plenty to learn from an experiment.
+
+## Who is assisting whom?
+
+The familiar phrase is “AI-assisted research”. In parts of this experiment I felt closer to an assistant to the AI research: obtaining papers, restarting failed stages, asking other models to explain the outputs, and deciding when to move on.
+
+I chose the problem, constraints and direction of the exercise. Much of the mathematical work, and much of the evaluation of that work, happened in model sessions. The boundary moved as the project progressed.
+
+How long until a single prompt can produce something like these results without that supervision? I do not have a reliable timetable. There are also two separate developments hidden in the question. A product could accept one prompt while carrying out a large internal research process. That would simplify the interface. Reliable research that needs no human help choosing a route, resolving uncertainty or checking the outcome is a further question.
+
+The experiment gave me reasons to take increasing autonomy seriously. It also gave me plenty of examples of how easily a process can mistake a completed step for a finished job.
+
+Suppose, though, that we do reach a world where proofs are abundant. What is the point of doing mathematics then?
+
+My supervisor already knew how to solve the problem he gave me. That did not make the assignment pointless. Its value lay in learning to see how the mathematics worked.
+
+I could now obtain a substantial PDF on that problem with remarkably little direct mathematical work. Having the document does not give me the understanding that working through it might provide. It does, however, put an explanation, a set of approaches and a very patient interlocutor within reach.
+
+Pure mathematics was my first intellectual passion. Returning to it was fun, nostalgic and at times uncomfortable. I was reminded of the effort and frustration involved in learning it properly, and of how difficult it is to find room for that effort after fifteen years spent mostly doing other things.
+
+These tools make it easier to begin again. I can ask for an explanation of a forgotten technique, compare two approaches, or explore a calculation without first committing myself to months of reconstructing the prerequisites. I can also ask the machines to do so much that I understand very little of the result. Both possibilities were present throughout this exercise.
+
+For me, the attraction of mathematics has always included the sheer joy and beauty of understanding: seeing why an argument works, how two ideas connect, or why something that looked mysterious has a surprisingly simple explanation.
+
+A supply of proofs does not use up those experiences. It may give me more opportunities to have them.
+
+Fifteen years later, I would quite like to understand my thesis.
+
+[^accounting]: Five earlier probes recovered from a local backup bring the totals to 146 invocations, $166.91 in Claude-reported usage and about 634,000 Codex output tokens. The 141-invocation subtotal uses the main archived research and preserved write-up ledgers. Neither figure includes all operator conversations, initial baseline chats, development work or human time.
