@@ -129,6 +129,12 @@ sitepackages/
 # Hugo
 .hugo_build.lock
 
+# Claude
+.claude/
+
+# Worktrees
+.worktrees/
+
 # others
 .~*
 *.bk
