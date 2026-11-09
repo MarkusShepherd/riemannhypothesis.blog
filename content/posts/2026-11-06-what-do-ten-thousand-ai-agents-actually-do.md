@@ -18,9 +18,9 @@ There has been rather a lot of excitement about AI doing mathematics lately. In 
 
 My immediate question was: how does this actually work?
 
-Presumably there is more to it than opening ChatGPT and typing:
+Obviously, there is more to it than opening ChatGPT and typing:
 
-> Solve Navier–Stokes. Think really hard. No mistakes!
+> solve navier stokes. think real hard. no mistakes!
 
 OpenAI's [account of its Navier–Stokes effort](https://openai.com/index/navier-stokes-solution/) describes an internal model, roughly 10,000 concurrent agents in the successful group, 88 hours to a proposed solution, and a further 17 hours of Lean formalisation and verification. Groups explored different problem variants; an intermediate Euler result was fed back into the search; Codex consolidated insights between groups. That is a substantial research process behind a short description of a breakthrough.
 
