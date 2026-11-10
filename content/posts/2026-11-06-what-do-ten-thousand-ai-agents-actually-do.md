@@ -42,15 +42,42 @@ It seemed a good test for AI for much the same reason. This was a problem about 
 
 For readers who would like to know what the machines were actually asked, here is the mathematical version. A number is *squarefree* if no square greater than one divides it. Consequently, each prime factor occurs at most once. For example, \\(30=2\cdot3\cdot5\\) is squarefree, whereas \\(12=2^2\cdot3\\) is not, since it is divisible by 4.
 
-Write \\(Q(x;q,l)\\) for the number of squarefree positive integers up to \\(x\\) that are congruent to \\(l\\) modulo \\(q\\).
+Take the simplest arithmetic progressions, the odd and even numbers. The squarefree entries are in **bold**:
 
-There is a known limiting density \\(g(q,l)\\) in each progression. We look at the discrepancy
+| Progression | First fifteen terms |
+| --- | --- |
+| Odd | **1**, **3**, **5**, **7**, 9, **11**, **13**, **15**, **17**, **19**, **21**, **23**, 25, 27, **29** |
+| Even | **2**, 4, **6**, 8, **10**, 12, **14**, 16, 18, 20, **22**, 24, **26**, 28, **30** |
+
+Every second even number is divisible by 4 and therefore excluded. Odd numbers have no such restriction from the prime 2. In the long run, about \\(8/\pi^2\approx81.1\%\\) of odd numbers and \\(4/\pi^2\approx40.5\%\\) of even numbers are squarefree.
+
+Write \\(Q(x;q,l)\\) for the number of squarefree positive integers up to \\(x\\) that are congruent to \\(l\\) modulo \\(q\\). For each fixed progression, this count has a linear main term \\(g(q,l)x\\). The coefficient is positive unless a prime square divides both \\(q\\) and \\(l\\), forcing every term to have that square divisor. The multiples of 4 are an example of this obstruction.
+
+Here \\(g(q,l)\\) measures density relative to *all* integers up to \\(x\\), rather than just the terms of the progression. Each row above contains about \\(x/2\\) terms up to \\(x\\), so \\(g(2,1)=4/\pi^2\\) and \\(g(2,0)=2/\pi^2\\).
+
+Primes, by comparison, become progressively rarer and have zero unweighted density. The corresponding prime-distribution problem usually counts each prime \\(p\\) with weight \\(\log p\\), giving the linear main term
+
+\\[
+\sum_{p\le x,\ p\equiv l\pmod q}\log p
+\sim \frac{x}{\varphi(q)}
+\qquad\text{when }\gcd(q,l)=1,
+\\]
+
+for fixed \\(q\\). Here \\(\varphi(q)\\) counts the residue classes coprime to \\(q\\). Squarefree numbers need no extra weight and can have positive density even in non-coprime classes, as the even numbers illustrate.
+
+Knowing the density gives a first approximation. To study its accuracy, we look at the discrepancy
 
 \\[
 E(x;q,l)=Q(x;q,l)-g(q,l)x.
 \\]
 
-Squaring these discrepancies and adding them over residue classes measures how uneven the distribution is. My problem restricted the moduli to polynomial values, such as \\(q=k^2+1\\), and studied
+How large are these errors? As the modulus grows, each progression contains fewer terms up to \\(x\\), and a fixed-modulus density formula alone tells us little about its accuracy. Controlling every individual progression can be difficult. A mean-square estimate instead describes the typical size of the discrepancy and limits how many progressions can have unusually large errors. Squaring prevents positive and negative errors from cancelling; dividing their sum by the number of classes gives the mean-square discrepancy.
+
+The classical variance problem averages over all moduli up to a bound. My problem instead selected polynomial moduli, such as \\(q=k^2+1\\): \\(2,5,10,17,26,\ldots\\). Only about \\(\sqrt{Y}\\) of these lie below \\(Y\\). A good average over all moduli might conceal much worse behaviour on such a sparse family. Restricting the moduli asks how well the distribution behaves under this additional arithmetic structure.
+
+There are applications of related estimates in prime number theory. For example, \\(p\equiv1\pmod{k^2}\\) means that \\(p-1\\) has the square divisor \\(k^2\\). Distribution estimates for square moduli helped [Baier and Zhao](https://doi.org/10.4064/aa125-2-5) ([PDF](https://arxiv.org/pdf/math/0602116)) prove results on primes for which \\(p-1\\) has a large square divisor. My thesis asked for a squarefree analogue of the sparse-modulus variance studied for primes.
+
+Specifically, it studied
 
 \\[
 V_f(x,y)=\sum_{1\le k\le y} f'(k)
@@ -58,7 +85,7 @@ V_f(x,y)=\sum_{1\le k\le y} f'(k)
 \qquad f(y)\le x.
 \\]
 
-The weight \\(f'(k)\\) compensates for the spacing between successive polynomial values. The question is to obtain an asymptotic formula: a main term, an explicit constant depending on \\(f\\), and an error estimate small enough to make the formula informative.
+The weight \\(f'(k)\\) compensates for the spacing between successive polynomial values: for \\(f(k)=k^2+1\\), the gaps are \\(2k+1\\), close to \\(f'(k)=2k\\). This makes the weighted sparse sum comparable in scale with a sum over all moduli up to \\(f(y)\\). The question is to obtain an asymptotic formula: a main term, an explicit constant depending on \\(f\\), and an error estimate small enough to make the formula informative.
 
 You do not need to understand the formula to follow the experiment. It matters that there are several distinct things to get right. Predicting the right scale is one task; finding the constant is another; proving a sufficiently small error over the claimed range is another again.
 
