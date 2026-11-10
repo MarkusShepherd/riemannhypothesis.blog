@@ -22,7 +22,7 @@ Obviously, there is more to it than opening ChatGPT and typing:
 
 > solve navier stokes. think real hard. no mistakes!
 
-OpenAI's [account of its Navier–Stokes effort](https://openai.com/index/navier-stokes-solution/) describes an internal model, roughly 10,000 concurrent agents in the successful group, 88 hours to a proposed solution, and a further 17 hours of [Lean](https://en.wikipedia.org/wiki/Lean_(proof_assistant)) formalisation and verification. Groups explored different problem variants; an intermediate Euler result was fed back into the search; Codex consolidated insights between groups. That is a substantial research process behind a short description of a breakthrough.
+OpenAI's [account of its Navier–Stokes effort](https://openai.com/index/navier-stokes-solution/) describes an internal model, roughly 10,000 concurrent agents in the successful group, 88 hours to a proposed solution and a further 17 hours of [Lean](https://en.wikipedia.org/wiki/Lean_(proof_assistant)) formalisation and verification. Groups explored different problem variants; an intermediate Euler result was fed back into the search; Codex consolidated insights between groups. That is a substantial research process behind a short description of a breakthrough.
 
 The Siegel-zero story also had a subsequent human exposition and simplification, including papers by [William Banks](https://arxiv.org/abs/2610.15483) and [Bryce Kerr](https://arxiv.org/abs/2610.21099). I am not going to adjudicate either claimed breakthrough here. What interested me was the work between posing a question and obtaining an argument someone could examine.
 
@@ -85,17 +85,17 @@ V_f(x,y)=\sum_{1\le k\le y} f'(k)
 \qquad f(y)\le x.
 \\]
 
-The weight \\(f'(k)\\) compensates for the spacing between successive polynomial values: for \\(f(k)=k^2+1\\), the gaps are \\(2k+1\\), close to \\(f'(k)=2k\\). This makes the weighted sparse sum comparable in scale with a sum over all moduli up to \\(f(y)\\). The question is to obtain an asymptotic formula: a main term, an explicit constant depending on \\(f\\), and an error estimate small enough to make the formula informative.
+The weight \\(f'(k)\\) compensates for the spacing between successive polynomial values: for \\(f(k)=k^2+1\\), the gaps are \\(2k+1\\), close to \\(f'(k)=2k\\). This makes the weighted sparse sum comparable in scale with a sum over all moduli up to \\(f(y)\\). The question is to obtain an asymptotic formula: a main term, an explicit constant depending on \\(f\\) and an error estimate small enough to make the formula informative.
 
 You do not need to understand the formula to follow the experiment. It matters that there are several distinct things to get right. Predicting the right scale is one task; finding the constant is another; proving a sufficiently small error over the claimed range is another again.
 
-## An agent is a process with a job
+## Running the agents
 
 The first useful answer to my questions was almost disappointingly mundane.
 
-In [the harness we built](https://gitlab.com/mshepherd/squarefree-numbers), an agent is a fresh invocation of a command-line model, using Claude Code or Codex. The underlying commands are `claude -p` and `codex exec`. A Python driver prepares the working folder, supplies a prompt and selected files, starts the process, and collects what it produces.
+In [the harness we built](https://gitlab.com/mshepherd/squarefree-numbers), an agent is a fresh invocation of a command-line model, using Claude Code or Codex. The underlying commands are `claude -p` and `codex exec`. A Python driver prepares the working folder, supplies a prompt and selected files, starts the process and collects what it produces.
 
-There is no little mathematician permanently living in the computer. The role comes from the instructions and the material supplied to that invocation. A planner gets a planning task. A prover gets one proposition to prove. A referee gets a statement and a proposed proof to scrutinise.
+Each invocation receives instructions and source material for a particular task: a planner develops a proof strategy, a prover tackles one proposition and a referee checks a proposed proof.
 
 A prover's folder looks approximately like this:
 
@@ -110,7 +110,7 @@ Its output is a proof file, or a report that the statement is defective. A refer
 
 The agents in my harness do not chat with one another. The driver copies files between stages; those copies determine what each model can know from the experiment. Persistent state lives in those files, so the next session can be fresh.
 
-This already explains a good deal of the apparent mystery. You can arrange for several sessions to explore different approaches, have other sessions check their work, and preserve intermediate results for later use. You decide what information moves between them.
+This already explains a good deal of the apparent mystery. You can arrange for several sessions to explore different approaches, have other sessions check their work and preserve intermediate results for later use. You decide what information moves between them.
 
 It also makes the word *swarm* rather grand for my version. I limited the system to two simultaneous agent invocations, largely because I was working within ordinary subscription limits. Over the course of the experiment there were many sessions, with different roles. Two at a time was quite enough to keep me occupied.
 
@@ -124,7 +124,7 @@ Fresh models were first asked what they already knew about the problem. My thesi
 
 We also restricted the usable literature to works from 2010 or earlier, plus the explicitly supplied papers, including the 2011 Brüdern–Wooley paper. My thesis and Dehnert's work were excluded. There were transcript scans for excluded sources and restrictions on tools, but the real runs used host directories rather than isolated containers. Search snippets did sometimes contain excluded titles or links. This was an attempt to preserve and audit independence, with practical limitations.
 
-Next came numerical experiments. Two agents independently wrote code to calculate the variance for three polynomials, including \\(k^2+1\\), at increasingly large values of \\(x\\). The larger computation reached \\(256{,}000{,}000\\). Operator sessions compared the outputs with each other, checked them against direct counts in small cases, and reran the code.
+Next came numerical experiments. Two agents independently wrote code to calculate the variance for three polynomials, including \\(k^2+1\\), at increasingly large values of \\(x\\). The larger computation reached \\(256{,}000{,}000\\). Operator sessions compared the outputs with each other, checked them against direct counts in small cases and reran the code.
 
 That supplied a useful constraint on the mathematics. A proof predicting twice the observed leading constant deserved immediate investigation.
 
@@ -132,7 +132,7 @@ There was a subtlety even here: exact counts do not give an exact limiting const
 
 Alongside the computation, librarian agents searched for relevant permitted literature. I supplied papers I could obtain, including through Cambridge Core. The eventual corpus was considerably larger than the original pair.
 
-Then the planners began. In the neutral experiment, two models each received four strategy hints: start from Vaughan, try a Dirichlet-series approach, seek the simplest rigorous argument, or proceed without an additional hint. “Neutral” here means the prompts did not encode the critiques of my thesis; the problem statement and supplied literature still gave the models substantial direction.
+Then the planners began. In the neutral experiment, two models each received four strategy hints: start from Vaughan, try a Dirichlet-series approach, seek the simplest rigorous argument or proceed without an additional hint. “Neutral” here means the prompts did not encode the critiques of my thesis; the problem statement and supplied literature still gave the models substantial direction.
 
 The planners had to propose a theorem and break its proof into explicit propositions. Each proposition needed its assumptions, parameter ranges, error terms, dependencies and citations. Planners and integrators could see the accepted numerical evidence; provers and proposition referees did not receive those targets.
 
@@ -154,7 +154,7 @@ I chose to restrict the problem to integer-coefficient polynomials, and we resta
 
 Once a plan was selected, the driver started one proof task per proposition.
 
-Each completed proof went to two fresh referee sessions, one from each model family. The referee prompt asked them to look for errors, check hypotheses against the supplied papers, track uniformity and the lengths of summed errors, and verify that dependencies were used exactly as stated.
+Each completed proof went to two fresh referee sessions, one from each model family. The referee prompt asked them to look for errors, check hypotheses against the supplied papers, track uniformity and the lengths of summed errors and verify that dependencies were used exactly as stated.
 
 Their verdicts were structured data, so the driver could decide what to do next. Conceptually, the loop was:
 
@@ -173,11 +173,11 @@ If a proposition remained stuck, a further role could examine approaches from ot
 
 That sounds wonderfully reassuring. Later checking still found local errors, including an auxiliary convergence statement that was too strong. Two model passes are useful evidence, and fresh contexts prevent some forms of information sharing. They do not make the models statistically independent or give their verdicts the status of formal proof verification.
 
-The next stage was integration. Two agents separately assembled the approved propositions, checked that their ranges and error estimates fitted together, stated the theorem actually obtained, and compared its constant with the numerical evidence.
+The next stage was integration. Two agents separately assembled the approved propositions, checked that their ranges and error estimates fitted together, stated the theorem actually obtained and compared its constant with the numerical evidence.
 
 This was two checks of one collection of proposition proofs. It was not two independent discoveries of the whole argument.
 
-Finally came a writer: turn the archived proof work into a readable LaTeX manuscript, with explanations and numerical tables, regenerate the computations, compile the document, and submit it to two more reviewers. Their comments fed another writing round.
+Finally came a writer: turn the archived proof work into a readable LaTeX manuscript, with explanations and numerical tables, regenerate the computations, compile the document and submit it to two more reviewers. Their comments fed another writing round.
 
 The extra review was useful. It also demonstrated how far there is to go between “all propositions passed” and a complete, accurately explained document.
 
@@ -191,7 +191,7 @@ I read the plans—or skimmed them, more honestly—but I was poorly equipped to
 
 I could ask those questions. Mostly, I asked another AI session for its judgment.
 
-The selected neutral plan came from Claude; the recommendation I used to choose it came from Codex. Similar separate sessions assessed the completeness of the proofs, interpreted referee objections, and compared the write-ups with my thesis. There was a layer of AI advice around the formal harness as well as the AI work inside it.
+The selected neutral plan came from Claude; the recommendation I used to choose it came from Codex. Similar separate sessions assessed the completeness of the proofs, interpreted referee objections and compared the write-ups with my thesis. There was a layer of AI advice around the formal harness as well as the AI work inside it.
 
 I retained control over what we attempted and what actions were allowed. But mathematical judgment was extensively delegated. Calling every approval an expert human verification would give a misleading impression of the experiment.
 
@@ -244,7 +244,7 @@ The proof and review stage of the neutral run took about 23 minutes. Planning to
 
 The project took considerably longer.
 
-The initial scaffold grew through 24 merge requests. We fixed tool permissions that did not mean what their names suggested, shell settings that gave the providers different Python environments, missing archive files, and failures to resume completed work sensibly.
+The initial scaffold grew through 24 merge requests. We fixed tool permissions that did not mean what their names suggested, shell settings that gave the providers different Python environments, missing archive files and failures to resume completed work sensibly.
 
 Usage limits were a recurring interruption. A failed referee call could also cause an incomplete proof round to be restarted, repeating work that had already succeeded. A machine agreeing that a theorem was correct was sometimes easier to obtain than a workflow that remembered what had happened before a quota reset.
 
@@ -254,7 +254,7 @@ There is a lesson here about what an impressive mathematical performance does an
 
 The accounting also deserves some care. Both providers were used through $20 subscription plans. Claude's CLI nevertheless reports a dollar figure resembling API-equivalent usage; that is not an additional invoice.
 
-Across the [main historical ledgers](https://gitlab.com/mshepherd/squarefree-numbers/-/tree/main/archive), including abandoned attempts and the write-up stages, there were **141 invocations, of which 20 failed**, about **$166.22 in Claude-reported usage**, and about **632,000 Codex output tokens**.[^accounting]
+Across the [main historical ledgers](https://gitlab.com/mshepherd/squarefree-numbers/-/tree/main/archive), including abandoned attempts and the write-up stages, there were **141 invocations, of which 20 failed**, about **$166.22 in Claude-reported usage** and about **632,000 Codex output tokens**.[^accounting]
 
 The two write-up stages alone accounted for about $103 of the Claude figure. For comparison, the entire neutral research run, including numerics, planning, proof, review and integration, accounted for about $23, plus 160,000 Codex output tokens. Those figures exclude the surrounding operator sessions and my time.
 
@@ -270,7 +270,7 @@ What I wanted to understand at the beginning now feels much more concrete.
 
 A model session can search for an approach. Another can develop a precisely stated piece of it. Other sessions can inspect that piece without inheriting the first session's whole conversation. Code can test identities and examples. A driver can retain successful intermediate work and arrange the next task.
 
-You can experiment with those choices yourself. The practical starting point could be one small claim, a written proposed solution, and a fresh session asked to find a specific counterexample or missing assumption. Then inspect what the review actually checked. That is already an experiment in organising work beyond a single conversation.
+You can experiment with those choices yourself. The practical starting point could be one small claim, a written proposed solution and a fresh session asked to find a specific counterexample or missing assumption. Then inspect what the review actually checked. That is already an experiment in organising work beyond a single conversation.
 
 For a larger project, the useful questions become: what intermediate output would make progress inspectable? What assumptions must the next step receive? What can be checked by a calculation or another external test? What should happen when the proposed statement turns out to be wrong?
 
@@ -284,7 +284,7 @@ That is plenty to learn from an experiment.
 
 ## Who is assisting whom?
 
-The familiar phrase is “AI-assisted research”. In parts of this experiment I felt closer to an assistant to the AI research: obtaining papers, restarting failed stages, asking other models to explain the outputs, and deciding when to move on.
+The familiar phrase is “AI-assisted research”. In parts of this experiment I felt closer to an assistant to the AI research: obtaining papers, restarting failed stages, asking other models to explain the outputs and deciding when to move on.
 
 I chose the problem, constraints and direction of the exercise. Much of the mathematical work, and much of the evaluation of that work, happened in model sessions. The boundary moved as the project progressed.
 
@@ -300,9 +300,9 @@ I could now obtain a substantial PDF on that problem with remarkably little dire
 
 Pure mathematics was my first intellectual passion. Returning to it was fun, nostalgic and at times uncomfortable. I was reminded of the effort and frustration involved in learning it properly, and of how difficult it is to find room for that effort after fifteen years spent mostly doing other things.
 
-These tools make it easier to begin again. I can ask for an explanation of a forgotten technique, compare two approaches, or explore a calculation without first committing myself to months of reconstructing the prerequisites. I can also ask the machines to do so much that I understand very little of the result. Both possibilities were present throughout this exercise.
+These tools make it easier to begin again. I can ask for an explanation of a forgotten technique, compare two approaches or explore a calculation without first committing myself to months of reconstructing the prerequisites. I can also ask the machines to do so much that I understand very little of the result. Both possibilities were present throughout this exercise.
 
-For me, the attraction of mathematics has always included the sheer joy and beauty of understanding: seeing why an argument works, how two ideas connect, or why something that looked mysterious has a surprisingly simple explanation.
+For me, the attraction of mathematics has always included the sheer joy and beauty of understanding: seeing why an argument works, how two ideas connect or why something that looked mysterious has a surprisingly simple explanation.
 
 A supply of proofs does not use up those experiences. It may give me more opportunities to have them.
 
