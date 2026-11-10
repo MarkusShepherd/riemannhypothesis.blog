@@ -40,7 +40,9 @@ This needs a little perspective. My advisor could probably have proved the resul
 
 It seemed a good test for AI for much the same reason. This was a problem about adapting established methods, with relevant literature to read and a reasonably concrete target. I wanted to learn how to organise an attempt, including what would go wrong.
 
-For readers who would like to know what the machines were actually asked, here is the mathematical version. A number is *squarefree* if no square greater than one divides it: 30 is squarefree, whereas 12 is not, since it is divisible by 4. Write \\(Q(x;q,l)\\) for the number of squarefree positive integers up to \\(x\\) that are congruent to \\(l\\) modulo \\(q\\).
+For readers who would like to know what the machines were actually asked, here is the mathematical version. A number is *squarefree* if no square greater than one divides it. Consequently, each prime factor occurs at most once. For example, \\(30=2\cdot3\cdot5\\) is squarefree, whereas \\(12=2^2\cdot3\\) is not, since it is divisible by 4.
+
+Write \\(Q(x;q,l)\\) for the number of squarefree positive integers up to \\(x\\) that are congruent to \\(l\\) modulo \\(q\\).
 
 There is a known limiting density \\(g(q,l)\\) in each progression. We look at the discrepancy
 
