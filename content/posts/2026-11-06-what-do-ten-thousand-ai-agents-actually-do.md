@@ -28,13 +28,11 @@ The Siegel-zero story also had a subsequent human exposition and simplification,
 
 What is an *agent*, in this setting? What do thousands of them do that one cannot? Who chooses what they work on, and how do their answers turn into a proof? Could an ordinary person experiment with something similar using the tools available on a normal subscription?
 
-As it happened, I had a suitable problem lying around. It was fifteen years old.
-
 <!-- more -->
 
 ## Two papers and a very familiar problem
 
-In 2011, my supervisor gave me two papers. One concerned primes in arithmetic progressions with moduli taken from polynomial sequences; the other concerned the variance of squarefree numbers in arithmetic progressions. My assignment was to combine the techniques.
+In 2011, my supervisor gave me two papers. One concerned [primes in arithmetic progressions with moduli taken from polynomial sequences](https://doi.org/10.1093/qmath/hap029) ([PDF](https://www.math.purdue.edu/~twooley/publ/2011sparse.pdf)); the other concerned [the variance of squarefree numbers in arithmetic progressions](https://doi.org/10.1112/S0024611505015352). My assignment was to combine the techniques.
 
 That became [my master's thesis](/schepke_distribution_of_squarefree_numbers_in_arithmetic_progressions.pdf).
 
