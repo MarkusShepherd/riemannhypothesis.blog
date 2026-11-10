@@ -22,7 +22,7 @@ Obviously, there is more to it than opening ChatGPT and typing:
 
 > solve navier stokes. think real hard. no mistakes!
 
-OpenAI's [account of its Navier–Stokes effort](https://openai.com/index/navier-stokes-solution/) describes an internal model, roughly 10,000 concurrent agents in the successful group, 88 hours to a proposed solution, and a further 17 hours of Lean formalisation and verification. Groups explored different problem variants; an intermediate Euler result was fed back into the search; Codex consolidated insights between groups. That is a substantial research process behind a short description of a breakthrough.
+OpenAI's [account of its Navier–Stokes effort](https://openai.com/index/navier-stokes-solution/) describes an internal model, roughly 10,000 concurrent agents in the successful group, 88 hours to a proposed solution, and a further 17 hours of [Lean](https://en.wikipedia.org/wiki/Lean_(proof_assistant)) formalisation and verification. Groups explored different problem variants; an intermediate Euler result was fed back into the search; Codex consolidated insights between groups. That is a substantial research process behind a short description of a breakthrough.
 
 The Siegel-zero story also had a subsequent human exposition and simplification, including papers by [William Banks](https://arxiv.org/abs/2610.15483) and [Bryce Kerr](https://arxiv.org/abs/2610.21099). I am not going to adjudicate either claimed breakthrough here. What interested me was the work between posing a question and obtaining an argument someone could examine.
 
@@ -38,7 +38,7 @@ In 2011, my supervisor gave me two papers. One concerned primes in arithmetic pr
 
 That became [my master's thesis](/schepke_distribution_of_squarefree_numbers_in_arithmetic_progressions.pdf).
 
-This needs a little perspective. My advisor could probably have proved the result over a weekend. The point of giving it to me was that I would learn the techniques: understand the papers, see how their arguments fit together, and work through the places where the combination required something new.
+This needs a little perspective. My advisor could probably have proved the result over a weekend. The point of giving it to me was that I would learn the techniques: understand the papers, see how their arguments fit together and work through the places where the combination required something new.
 
 It seemed a good test for AI for much the same reason. This was a problem about adapting established methods, with relevant literature to read and a reasonably concrete target. I wanted to learn how to organise an attempt, including what would go wrong.
 
