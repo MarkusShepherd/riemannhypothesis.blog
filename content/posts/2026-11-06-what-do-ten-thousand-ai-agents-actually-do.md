@@ -24,6 +24,8 @@ Obviously, there is more to it than opening ChatGPT and typing:
 
 OpenAI's [account of its Navier–Stokes effort](https://openai.com/index/navier-stokes-solution/) describes an internal model, roughly 10,000 concurrent agents in the successful group, 88 hours to a proposed solution and a further 17 hours of [Lean](https://en.wikipedia.org/wiki/Lean_(proof_assistant)) formalisation and verification. Groups explored different problem variants; an intermediate Euler result was fed back into the search; Codex consolidated insights between groups. That is a substantial research process behind a short description of a breakthrough.
 
+<!-- Later revision: cover the Navier–Stokes priority and appropriation dispute, including the claims that OpenAI used human experts' work to rush its announcement, OpenAI's response and the criticism that publicity and corporate valuation took precedence over scientific attribution and human understanding. Find and link the original public statements. -->
+
 The Siegel-zero story also had a subsequent human exposition and simplification, including papers by [William Banks](https://arxiv.org/abs/2610.15483) and [Bryce Kerr](https://arxiv.org/abs/2610.21099). I am not going to adjudicate either claimed breakthrough here. What interested me was the work between posing a question and obtaining an argument someone could examine.
 
 What is an *agent*, in this setting? What do thousands of them do that one cannot? Who chooses what they work on, and how do their answers turn into a proof? Could an ordinary person experiment with something similar using the tools available on a normal subscription?
@@ -93,7 +95,11 @@ You do not need to understand the formula to follow the experiment. It matters t
 
 The first useful answer to my questions was almost disappointingly mundane.
 
-In [the harness we built](https://gitlab.com/mshepherd/squarefree-numbers), an agent is a fresh invocation of a command-line model, using Claude Code or Codex. The underlying commands are `claude -p` and `codex exec`. A Python driver prepares the working folder, supplies a prompt and selected files, starts the process and collects what it produces.
+The [harness](https://gitlab.com/mshepherd/squarefree-numbers) is 100% AI slop. The source is a horrible, unreadable mess; protective equipment is recommended before following the link.
+
+The models also proposed the workflow and wrote the prompts. Deciding how to decompose a problem, what information to give each agent and how to check the results is a place where human expertise could make a real difference. I largely outsourced that judgment too, asking AI how to organise the attempt and having it implement the design. Even setting up the experiment was something I could delegate.
+
+An agent in this setup is a fresh invocation of a command-line model, using Claude Code or Codex. The underlying commands are `claude -p` and `codex exec`. A Python driver prepares the working folder, supplies a prompt and selected files, starts the process and collects what it produces.
 
 Each invocation receives instructions and source material for a particular task: a planner develops a proof strategy, a prover tackles one proposition and a referee checks a proposed proof.
 
