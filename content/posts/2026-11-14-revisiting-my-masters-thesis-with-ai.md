@@ -98,6 +98,14 @@ The weight \\(f^{\prime}(k)\\) compensates for the spacing between successive po
 
 You do not need to understand the formula to follow the experiment. It matters that there are several distinct things to get right. Predicting the right scale is one task; finding the constant is another; proving a sufficiently small error over the claimed range is another again.
 
+## Before the harness: two single chats
+
+I also tried the problem in two separate chats, [one with Claude Opus 5.5](https://gitlab.com/mshepherd/riemannhypothesis.blog/-/work_items/4#note_4130395365) and [one with ChatGPT/Codex](https://gitlab.com/mshepherd/riemannhypothesis.blog/-/work_items/4#note_4130488216). Each received the problem statement without the source papers and was instructed to work without web searches or stored context. Claude was allowed to run local computations.
+
+Both produced proof sketches using elementary correlations between pairs of squarefree numbers, estimating the variance at each modulus before averaging over polynomial values. Both proposed the lower threshold \\(x^{7/9+\delta}\\), with an upper bound \\(f(y)\le x^{1-\delta}\\). Comparing their constants with the thesis led to the factor-of-two correction described [below](#checking-the-thesis). This happened before the full harness was run.
+
+Those sketches provide a useful baseline for the later experiments. They had not undergone the proposition-by-proposition reviews or manuscript checks described below, and my surviving records of the chats are the contemporary summaries linked above. The neutral harness run eventually reached the same lower threshold. Its contribution was developing the argument in detail, repeatedly checking it and preserving the work in an inspectable form.
+
 ## Running the agents
 
 The [harness](https://gitlab.com/mshepherd/squarefree-numbers) is 100% AI slop. The source is a horrible, unreadable mess; protective equipment is recommended before following the link.
@@ -265,7 +273,7 @@ x^{7/9+\delta}\le f(y)\le x^{1-\delta},
 \qquad 0<\delta<1/9,
 \\]
 
-under the polynomial assumptions in the problem. This was the same headline lower threshold reached in the earlier single-chat baselines, before the full harness was run. Much of the harness's contribution was developing, checking and preserving the argument around that result.
+under the polynomial assumptions in the problem. This matched the lower threshold proposed in the [single-chat sketches](#before-the-harness-two-single-chats), now with the detailed proof and review record described above.
 
 Its nine proposition proofs were all written by Claude Sonnet. Codex contributed planning, numerical computation, refereeing and integration. Although both providers were configured as provers, the default rotated them by *round*: every proposition began with Claude, and everything passed before a second round. I only fully appreciated the consequence when attempting the next run.
 
@@ -337,7 +345,7 @@ Those questions travel beyond mathematics. A decomposition into proposals, expli
 
 Different models, versions and effort settings give further choices. The completed experiments used Claude Opus 5.5, Claude Sonnet 5.5 and GPT-6.1 Sol, mostly at high effort. “High” is a provider's setting, not a common unit of reasoning, and a cheaper model writing a proof that more expensive models reviewed was a useful configuration. Our scheduling accident also showed that the configuration file alone does not tell you who actually did the work.
 
-I would be reluctant to claim that this setup was optimal. The single-chat baselines had already found the neutral run's headline range. What I gained was a much clearer picture of the process and its failure modes, together with a record that could be examined.
+I would be reluctant to claim that this setup was optimal. The single-chat baselines had already proposed the neutral run's headline range. What I gained was a much clearer picture of the process and its failure modes, together with a record that could be examined.
 
 That is plenty to learn from an experiment.
 
