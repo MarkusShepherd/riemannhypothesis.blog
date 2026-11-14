@@ -253,10 +253,10 @@ There were four archived experiments, including an early attempt before the lite
 
 ### The neutral run
 
-The [neutral run](https://gitlab.com/mshepherd/squarefree-numbers/-/tree/main/writeups/zt-neutral) used an elementary approach based on correlations between pairs of squarefree numbers, followed by averaging over polynomial values. It obtained the main-term shape
+The [neutral run](https://gitlab.com/mshepherd/squarefree-numbers/-/tree/main/writeups/zt-neutral) ([PDF](/squarefree-numbers-neutral.pdf)) used an elementary approach based on correlations between pairs of squarefree numbers, followed by averaging over polynomial values. It obtained the main-term shape
 
 \\[
-V_f(x,y)\sim C_f\sqrt{x}\,f(y)^{3/2}
+V_f(x,y)\sim C_f\sqrt{x}f(y)^{3/2}
 \\]
 
 in the range
@@ -272,7 +272,7 @@ Its nine proposition proofs were all written by Claude Sonnet. Codex contributed
 
 ### The thesis-guided run
 
-For the [second completed experiment](https://gitlab.com/mshepherd/squarefree-numbers/-/tree/main/writeups/zt-thesis-plan), I had an operator read my thesis and write a light hint encouraging the combination of Vaughan and Brüdern–Wooley. That makes it a thesis-guided comparison, distinct from the neutral run. We reused the accepted numerics and literature.
+For the [second completed experiment](https://gitlab.com/mshepherd/squarefree-numbers/-/tree/main/writeups/zt-thesis-plan) ([PDF](/squarefree-numbers-thesis-guided.pdf)), I had an operator read my thesis and write a light hint encouraging the combination of Vaughan and Brüdern–Wooley. That makes it a thesis-guided comparison, distinct from the neutral run. We reused the accepted numerics and literature.
 
 Codex Sol wrote its seven final proposition proofs. The result had a more detailed formula describing behaviour when \\(f(y)\\) is comparable with \\(x\\), but a narrower range for the simple power-law asymptotic. For quadratic polynomials, its lower threshold was \\(x^{19/21+\delta}\\), compared with \\(x^{7/9+\delta}\\) in the neutral run.
 
