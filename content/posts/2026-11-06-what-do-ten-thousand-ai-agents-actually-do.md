@@ -334,7 +334,7 @@ Those questions travel beyond mathematics. A decomposition into proposals, expli
 
 ### Models and effort settings
 
-Different models, versions and effort settings give further choices. The completed experiments used Claude Opus 5.5, Claude Sonnet 5.5 and Codex's `gpt-6.1-sol`, mostly at high effort. “High” is a provider's setting, not a common unit of reasoning, and a cheaper model writing a proof that more expensive models reviewed was a useful configuration. Our scheduling accident also showed that the configuration file alone does not tell you who actually did the work.
+Different models, versions and effort settings give further choices. The completed experiments used Claude Opus 5.5, Claude Sonnet 5.5 and GPT-6.1 Sol, mostly at high effort. “High” is a provider's setting, not a common unit of reasoning, and a cheaper model writing a proof that more expensive models reviewed was a useful configuration. Our scheduling accident also showed that the configuration file alone does not tell you who actually did the work.
 
 I would be reluctant to claim that this setup was optimal. The single-chat baselines had already found the neutral run's headline range. What I gained was a much clearer picture of the process and its failure modes, together with a record that could be examined.
 
