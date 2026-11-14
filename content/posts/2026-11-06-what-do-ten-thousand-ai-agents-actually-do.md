@@ -174,7 +174,11 @@ f(t)=\frac{t(t+1)}2+1
 
 has \\(f(0)=1\\) and \\(f(2)=4\\): the inputs agree modulo 2, the outputs do not. That broke the naive definition of a root count used in the plans.
 
+The same gap is present in [Brüdern–Wooley's 2011 paper](https://doi.org/10.1093/qmath/hap029). It explicitly allows integer-valued polynomials with rational coefficients, but equation (21) groups inputs by their residue modulo \\(q\\) and treats their polynomial values as having the same residue. The example above shows why that step is not generally valid. It also contradicts the multiplicativity claimed in Lemma 3.[^bw11-gap] This does not by itself disprove the main theorem, but the rational-coefficient case needs an additional argument.
+
 I chose to restrict the problem to integer-coefficient polynomials, and we restarted. The agents had helped correct the question before attempting to prove the answer.
+
+For me, this was one of the most striking uses of AI in the experiment: checking assumptions in published research I had treated as a reliable starting point. Using AI to revisit older papers could help uncover gaps that have survived peer review and years of reuse.
 
 ## Prove, object, assemble, repeat
 
@@ -373,5 +377,7 @@ A supply of proofs does not use up those experiences. It may give me more opport
 Fifteen years later, I would quite like to understand my thesis.
 
 [^dehnert]: I have been unable to obtain a copy or contact the author. His paper would be a much better benchmark for the AI work than my thesis, having been published in a journal and subjected to a different level of peer review. Unfortunately, I couldn't justify shelling out an unreasonable amount of cash to Springer for a single article. If any reader can help me obtain a copy or reach the author, a comparison with the AI results would make a great follow-up.
+
+[^bw11-gap]: See equation (21) on page 8 and Lemma 3 on page 9 of the [paper (PDF)](https://www.math.purdue.edu/~twooley/publ/2011sparse.pdf#page=8). For the polynomial above, the lemma's definition gives \\(w_1(2)=1\\), \\(w_1(3)=-1\\) and \\(w_1(6)=-1/3\\), whereas multiplicativity would require \\(w_1(6)=w_1(2)w_1(3)=-1\\).
 
 [^accounting]: Five earlier probes recovered from a local backup bring the totals to 146 invocations, $166.91 in Claude-reported usage and about 634,000 Codex output tokens. The 141-invocation subtotal uses the main archived research and preserved write-up ledgers. Neither figure includes all operator conversations, initial baseline chats, development work or human time.
