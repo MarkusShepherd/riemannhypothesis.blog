@@ -128,8 +128,6 @@ Fresh models were first asked what they already knew about the problem. My thesi
 
 We also restricted the usable literature to works from 2010 or earlier, plus the explicitly supplied papers, including the 2011 Brüdern–Wooley paper. My thesis and Dehnert's work were excluded. This was an awkward, artificial restriction: in actual frontier research you would normally want to build on all relevant existing work. Here we wanted a somewhat apples-to-apples comparison with my original assignment, rather than an answer assembled from fifteen subsequent years of research.
 
-Building on others' work also comes with obligations to the people who produced it. Terence Tao has warned against the [“indiscriminate automated strip-mining of open problems for solutions”](https://mathstodon.xyz/@tao/117204930249967695): a problem can generate new techniques, train students and suggest further questions while people work on it. Extracting an answer without developing or sharing that understanding can damage the community that made the problem worth asking. In a [joint declaration](https://mathandai.org/), Tao and other Fields medallists criticised the use of mathematics as a corporate benchmark, rushed announcements and failures of attribution. A press release and a higher valuation are poor substitutes for explaining the ideas, acknowledging prior work or supporting the people doing that work.
-
 There were transcript scans for excluded sources and restrictions on tools, but the real runs used host directories rather than isolated containers. Search snippets did sometimes contain excluded titles or links. This was an attempt to preserve and audit independence, with practical limitations.
 
 Next came numerical experiments. Two agents independently wrote code to calculate the variance for three polynomials, including \\(k^2+1\\), at increasingly large values of \\(x\\). The larger computation reached \\(256{,}000{,}000\\). Operator sessions compared the outputs with each other, checked them against direct counts in small cases and reran the code.
@@ -307,6 +305,8 @@ The experiment gave me reasons to take increasing autonomy seriously. It also ga
 Suppose, though, that we do reach a world where proofs are abundant. What is the point of doing mathematics then?
 
 My supervisor already knew how to solve the problem he gave me. That did not make the assignment pointless. Its value lay in learning to see how the mathematics worked.
+
+That learning also sustains the wider mathematical community. Terence Tao has warned against the [“indiscriminate automated strip-mining of open problems for solutions”](https://mathstodon.xyz/@tao/117204930249967695): a problem can generate new techniques, train students and suggest further questions while people work on it. Extracting an answer without developing or sharing that understanding can damage the community that made the problem worth asking. In a [joint declaration](https://mathandai.org/), Tao and other Fields medallists criticised the use of mathematics as a corporate benchmark, rushed announcements and failures of attribution. A press release and a higher valuation are poor substitutes for explaining the ideas, acknowledging prior work or supporting the people doing that work.
 
 I could now obtain a substantial PDF on that problem with remarkably little direct mathematical work. Having the document does not give me the understanding that working through it might provide. It does, however, put an explanation, a set of approaches and a very patient interlocutor within reach.
 
