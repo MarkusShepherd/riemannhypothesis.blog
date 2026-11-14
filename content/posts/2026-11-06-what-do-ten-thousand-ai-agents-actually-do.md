@@ -53,7 +53,7 @@ Take the simplest arithmetic progressions, the odd and even numbers. The squaref
 | Odd | **1**, **3**, **5**, **7**, 9, **11**, **13**, **15**, **17**, **19**, **21**, **23**, 25, 27, **29** |
 | Even | **2**, 4, **6**, 8, **10**, 12, **14**, 16, 18, 20, **22**, 24, **26**, 28, **30** |
 
-Every second even number is divisible by 4 and therefore excluded. Odd numbers have no such restriction from the prime 2. In the long run, about \\(8/\pi^2\approx81.1\%\\) of odd numbers and \\(4/\pi^2\approx40.5\%\\) of even numbers are squarefree.
+Every second even number is divisible by 4 and therefore excluded. Odd numbers have no such restriction from the prime 2. In the long run, about \\(8/\pi^2\approx81.1\\%\\) of odd numbers and \\(4/\pi^2\approx40.5\\%\\) of even numbers are squarefree.
 
 Write \\(Q(x;q,l)\\) for the number of squarefree positive integers up to \\(x\\) that are congruent to \\(l\\) modulo \\(q\\). For each fixed progression, this count has a linear main term \\(g(q,l)x\\). The coefficient is positive unless a prime square divides both \\(q\\) and \\(l\\), forcing every term to have that square divisor. The multiples of 4 are an example of this obstruction.
 
@@ -65,11 +65,10 @@ Primes, by comparison, become progressively rarer and have zero unweighted densi
 
 \\[
 \sum_{p\le x,\ p\equiv l\pmod q}\log p
-\sim \frac{x}{\varphi(q)}
-\qquad\text{when }\gcd(q,l)=1,
+\sim \frac{x}{\varphi(q)},
 \\]
 
-for fixed \\(q\\). Here \\(\varphi(q)\\) counts the residue classes coprime to \\(q\\). Squarefree numbers need no extra weight and can have positive density even in non-coprime classes, as the even numbers illustrate.
+for fixed \\(q\\) with \\(\gcd(q,l)=1\\). Here \\(\varphi(q)\\) counts the residue classes coprime to \\(q\\). Squarefree numbers need no extra weight and can have positive density even in non-coprime classes, as the even numbers illustrate.
 
 ### Variance and typical errors
 
@@ -87,15 +86,14 @@ The classical variance problem averages over all moduli up to a bound. My proble
 
 There are applications of related estimates in prime number theory. For example, \\(p\equiv1\pmod{k^2}\\) means that \\(p-1\\) has the square divisor \\(k^2\\). Distribution estimates for square moduli helped [Baier and Zhao](https://doi.org/10.4064/aa125-2-5) ([PDF](https://arxiv.org/pdf/math/0602116)) prove results on primes for which \\(p-1\\) has a large square divisor. My thesis asked for a squarefree analogue of the sparse-modulus variance studied for primes.
 
-Specifically, it studied
+Specifically, for \\(f(y)\le x\\) it studied
 
 \\[
-V_f(x,y)=\sum_{1\le k\le y} f'(k)
-\sum_{l=1}^{f(k)} E(x;f(k),l)^2,
-\qquad f(y)\le x.
+V_f(x,y)=\sum_{1\le k\le y} f^{\prime}(k)
+\sum_{l=1}^{f(k)} E(x;f(k),l)^2.
 \\]
 
-The weight \\(f'(k)\\) compensates for the spacing between successive polynomial values: for \\(f(k)=k^2+1\\), the gaps are \\(2k+1\\), close to \\(f'(k)=2k\\). This makes the weighted sparse sum comparable in scale with a sum over all moduli up to \\(f(y)\\). The question is to obtain an asymptotic formula: a main term, an explicit constant depending on \\(f\\) and an error estimate small enough to make the formula informative.
+The weight \\(f^{\prime}(k)\\) compensates for the spacing between successive polynomial values: for \\(f(k)=k^2+1\\), the gaps are \\(2k+1\\), close to \\(f^{\prime}(k)=2k\\). This makes the weighted sparse sum comparable in scale with a sum over all moduli up to \\(f(y)\\). The question is to obtain an asymptotic formula: a main term, an explicit constant depending on \\(f\\) and an error estimate small enough to make the formula informative.
 
 You do not need to understand the formula to follow the experiment. It matters that there are several distinct things to get right. Predicting the right scale is one task; finding the constant is another; proving a sufficiently small error over the claimed range is another again.
 
