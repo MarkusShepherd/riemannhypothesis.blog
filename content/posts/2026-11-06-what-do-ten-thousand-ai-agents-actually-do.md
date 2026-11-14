@@ -93,8 +93,6 @@ You do not need to understand the formula to follow the experiment. It matters t
 
 ## Running the agents
 
-The first useful answer to my questions was almost disappointingly mundane.
-
 The [harness](https://gitlab.com/mshepherd/squarefree-numbers) is 100% AI slop. The source is a horrible, unreadable mess; protective equipment is recommended before following the link.
 
 The models also proposed the workflow and wrote the prompts. Deciding how to decompose a problem, what information to give each agent and how to check the results is a place where human expertise could make a real difference. I largely outsourced that judgment too, asking AI how to organise the attempt and having it implement the design. Even setting up the experiment was something I could delegate.
@@ -126,7 +124,7 @@ This was my own small workflow, rather than a reconstruction of OpenAI's system.
 
 The tempting place to start is “prove the theorem”. We put several stages before that.
 
-Fresh models were first asked what they already knew about the problem. My thesis is online, and a later paper by Fabian Dehnert treats the same topic. Asking a model to rediscover an answer it has just retrieved would be a rather different experiment. Neither a failure to recall a result nor a different proof strategy can establish that it was absent from training data, but the probes at least recorded what the models volunteered.
+Fresh models were first asked what they already knew about the problem. My thesis is online, and [a later paper by Fabian Dehnert](https://doi.org/10.1007/s00605-014-0691-6) treats the same topic.[^dehnert] Asking a model to rediscover an answer it has just retrieved would be a rather different experiment. Neither a failure to recall a result nor a different proof strategy can establish that it was absent from training data, but the probes at least recorded what the models volunteered.
 
 We also restricted the usable literature to works from 2010 or earlier, plus the explicitly supplied papers, including the 2011 Brüdern–Wooley paper. My thesis and Dehnert's work were excluded. There were transcript scans for excluded sources and restrictions on tools, but the real runs used host directories rather than isolated containers. Search snippets did sometimes contain excluded titles or links. This was an attempt to preserve and audit independence, with practical limitations.
 
@@ -317,5 +315,7 @@ For me, the attraction of mathematics has always included the sheer joy and beau
 A supply of proofs does not use up those experiences. It may give me more opportunities to have them.
 
 Fifteen years later, I would quite like to understand my thesis.
+
+[^dehnert]: I have been unable to obtain a copy or contact the author. His paper would be a much better benchmark for the AI work than my thesis, having been published in a journal and subjected to a different level of peer review. Unfortunately, I couldn't justify shelling out an unreasonable amount of cash to Springer for a single article. If any reader can help me obtain a copy or reach the author, a comparison with the AI results would make a great follow-up.
 
 [^accounting]: Five earlier probes recovered from a local backup bring the totals to 146 invocations, $166.91 in Claude-reported usage and about 634,000 Codex output tokens. The 141-invocation subtotal uses the main archived research and preserved write-up ledgers. Neither figure includes all operator conversations, initial baseline chats, development work or human time.
