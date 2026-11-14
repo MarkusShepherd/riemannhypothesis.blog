@@ -15,7 +15,7 @@ tags:
   - Mathematical research
 ---
 
-There has been rather a lot of excitement about AI doing mathematics lately. In September, OpenAI claimed a solution to a version of the Navier–Stokes Millennium Prize Problem; in October came a claimed proof that Landau–Siegel zeros do not exist. Those are quite some claims to put between the usual product announcements.
+There has been rather a lot of excitement about AI doing mathematics lately. In September, OpenAI claimed a solution to a version of the Navier–Stokes Millennium Prize Problem; in October it also claimed a proof that Landau–Siegel zeros do not exist. Those are quite some claims to put between the usual product announcements.
 
 My immediate question was: how does this actually work?
 
@@ -31,6 +31,8 @@ The Siegel-zero story also had a subsequent human exposition and simplification,
 
 What is an *agent*, in this setting? What do thousands of them do that one cannot? Who chooses what they work on, and how do their answers turn into a proof? Could an ordinary person experiment with something similar using the tools available on a normal subscription?
 
+I tried it with the problem from my master's thesis.
+
 <!-- more -->
 
 ## Two papers and a very familiar problem
@@ -39,7 +41,7 @@ In 2011, my supervisor gave me two papers. One concerned [primes in arithmetic p
 
 That became [my master's thesis](/schepke_distribution_of_squarefree_numbers_in_arithmetic_progressions.pdf).
 
-This needs a little perspective. My advisor could probably have proved the result over a weekend. The point of giving it to me was that I would learn the techniques: understand the papers, see how their arguments fit together and work through the places where the combination required something new.
+This needs a little perspective. My supervisor could probably have proved the result over a weekend. The point of giving it to me was that I would learn the techniques: understand the papers, see how their arguments fit together and work through the places where the combination required something new.
 
 It seemed a good test for AI for much the same reason. This was a problem about adapting established methods, with relevant literature to read and a reasonably concrete target. I wanted to learn how to organise an attempt, including what would go wrong.
 
@@ -275,13 +277,13 @@ x^{7/9+\delta}\le f(y)\le x^{1-\delta},
 
 under the polynomial assumptions in the problem. This matched the lower threshold proposed in the [single-chat sketches](#before-the-harness-two-single-chats), now with the detailed proof and review record described above.
 
-Its nine proposition proofs were all written by Claude Sonnet. Codex contributed planning, numerical computation, refereeing and integration. Although both providers were configured as provers, the default rotated them by *round*: every proposition began with Claude, and everything passed before a second round. I only fully appreciated the consequence when attempting the next run.
+Its nine proposition proofs were all written by Claude Sonnet 5.5. Codex contributed planning, numerical computation, refereeing and integration. Although both providers were configured as provers, the default rotated them by *round*: every proposition began with Claude, and everything passed before a second round. I only fully appreciated the consequence when attempting the next run.
 
 ### The thesis-guided run
 
 For the [second completed experiment](https://gitlab.com/mshepherd/squarefree-numbers/-/tree/main/writeups/zt-thesis-plan) ([PDF](/squarefree-numbers-thesis-guided.pdf)), I had an operator read my thesis and write a light hint encouraging the combination of Vaughan and Brüdern–Wooley. That makes it a thesis-guided comparison, distinct from the neutral run. We reused the accepted numerics and literature.
 
-Codex Sol wrote its seven final proposition proofs. The result had a more detailed formula describing behaviour when \\(f(y)\\) is comparable with \\(x\\), but a narrower range for the simple power-law asymptotic. For quadratic polynomials, its lower threshold was \\(x^{19/21+\delta}\\), compared with \\(x^{7/9+\delta}\\) in the neutral run.
+GPT-6.1 Sol wrote its seven final proposition proofs. The result had a more detailed formula describing behaviour when \\(f(y)\\) is comparable with \\(x\\), but a narrower range for the simple power-law asymptotic. For quadratic polynomials, its lower threshold was \\(x^{19/21+\delta}\\), compared with \\(x^{7/9+\delta}\\) in the neutral run.
 
 Following something closer to my old route had changed the trade-off rather than simply improving the answer.
 
