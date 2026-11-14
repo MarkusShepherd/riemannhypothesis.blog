@@ -42,6 +42,8 @@ This needs a little perspective. My advisor could probably have proved the resul
 
 It seemed a good test for AI for much the same reason. This was a problem about adapting established methods, with relevant literature to read and a reasonably concrete target. I wanted to learn how to organise an attempt, including what would go wrong.
 
+### Squarefree numbers in arithmetic progressions
+
 For readers who would like to know what the machines were actually asked, here is the mathematical version. A number is *squarefree* if no square greater than one divides it. Consequently, each prime factor occurs at most once. For example, \\(30=2\cdot3\cdot5\\) is squarefree, whereas \\(12=2^2\cdot3\\) is not, since it is divisible by 4.
 
 Take the simplest arithmetic progressions, the odd and even numbers. The squarefree entries are in **bold**:
@@ -57,6 +59,8 @@ Write \\(Q(x;q,l)\\) for the number of squarefree positive integers up to \\(x\\
 
 Here \\(g(q,l)\\) measures density relative to *all* integers up to \\(x\\), rather than just the terms of the progression. Each row above contains about \\(x/2\\) terms up to \\(x\\), so \\(g(2,1)=4/\pi^2\\) and \\(g(2,0)=2/\pi^2\\).
 
+### Comparison with primes
+
 Primes, by comparison, become progressively rarer and have zero unweighted density. The corresponding prime-distribution problem usually counts each prime \\(p\\) with weight \\(\log p\\), giving the linear main term
 
 \\[
@@ -67,6 +71,8 @@ Primes, by comparison, become progressively rarer and have zero unweighted densi
 
 for fixed \\(q\\). Here \\(\varphi(q)\\) counts the residue classes coprime to \\(q\\). Squarefree numbers need no extra weight and can have positive density even in non-coprime classes, as the even numbers illustrate.
 
+### Variance and typical errors
+
 Knowing the density gives a first approximation. To study its accuracy, we look at the discrepancy
 
 \\[
@@ -74,6 +80,8 @@ E(x;q,l)=Q(x;q,l)-g(q,l)x.
 \\]
 
 How large are these errors? As the modulus grows, each progression contains fewer terms up to \\(x\\), and a fixed-modulus density formula alone tells us little about its accuracy. Controlling every individual progression can be difficult. A mean-square estimate instead describes the typical size of the discrepancy and limits how many progressions can have unusually large errors. Squaring prevents positive and negative errors from cancelling; dividing their sum by the number of classes gives the mean-square discrepancy.
+
+### Polynomial moduli
 
 The classical variance problem averages over all moduli up to a bound. My problem instead selected polynomial moduli, such as \\(q=k^2+1\\): \\(2,5,10,17,26,\ldots\\). Only about \\(\sqrt{Y}\\) of these lie below \\(Y\\). A good average over all moduli might conceal much worse behaviour on such a sparse family. Restricting the moduli asks how well the distribution behaves under this additional arithmetic structure.
 
@@ -97,6 +105,8 @@ The [harness](https://gitlab.com/mshepherd/squarefree-numbers) is 100% AI slop. 
 
 The models also proposed the workflow and wrote the prompts. Deciding how to decompose a problem, what information to give each agent and how to check the results is a place where human expertise could make a real difference. I largely outsourced that judgment too, asking AI how to organise the attempt and having it implement the design. Even setting up the experiment was something I could delegate.
 
+### Starting separate model sessions
+
 An agent in this setup is a fresh invocation of a command-line model, using Claude Code or Codex. The underlying commands are `claude -p` and `codex exec`. A Python driver prepares the working folder, supplies a prompt and selected files, starts the process and collects what it produces.
 
 Each invocation receives instructions and source material for a particular task: a planner develops a proof strategy, a prover tackles one proposition and a referee checks a proposed proof.
@@ -112,6 +122,8 @@ papers/          the supplied literature
 
 Its output is a proof file, or a report that the statement is defective. A referee receives a separate copy of the relevant inputs. It does not see the prover's conversation or the other referee's verdict.
 
+### How results move between agents
+
 The agents in my harness do not chat with one another. The driver copies files between stages; those copies determine what each model can know from the experiment. Persistent state lives in those files, so the next session can be fresh.
 
 This already explains a good deal of the apparent mystery. You can arrange for several sessions to explore different approaches, have other sessions check their work and preserve intermediate results for later use. You decide what information moves between them.
@@ -124,17 +136,23 @@ This was my own small workflow, rather than a reconstruction of OpenAI's system.
 
 The tempting place to start is “prove the theorem”. We put several stages before that.
 
+### Prior knowledge and excluded sources
+
 Fresh models were first asked what they already knew about the problem. My thesis is online, and [a later paper by Fabian Dehnert](https://doi.org/10.1007/s00605-014-0691-6) treats the same topic.[^dehnert] Asking a model to rediscover an answer it has just retrieved would be a rather different experiment. Neither a failure to recall a result nor a different proof strategy can establish that it was absent from training data, but the probes at least recorded what the models volunteered.
 
 We also restricted the usable literature to works from 2010 or earlier, plus the explicitly supplied papers, including the 2011 Brüdern–Wooley paper. My thesis and Dehnert's work were excluded. This was an awkward, artificial restriction: in actual frontier research you would normally want to build on all relevant existing work. Here we wanted a somewhat apples-to-apples comparison with my original assignment, rather than an answer assembled from fifteen subsequent years of research.
 
 There were transcript scans for excluded sources and restrictions on tools, but the real runs used host directories rather than isolated containers. Search snippets did sometimes contain excluded titles or links. This was an attempt to preserve and audit independence, with practical limitations.
 
+### Numerical experiments
+
 Next came numerical experiments. Two agents independently wrote code to calculate the variance for three polynomials, including \\(k^2+1\\), at increasingly large values of \\(x\\). The larger computation reached \\(256{,}000{,}000\\). Operator sessions compared the outputs with each other, checked them against direct counts in small cases and reran the code.
 
 That supplied a useful constraint on the mathematics. A proof predicting twice the observed leading constant deserved immediate investigation.
 
 There was a subtlety even here: exact counts do not give an exact limiting constant. Lower-order effects depend on the ratio \\(f(y)/x\\). Increasing \\(x\\) while keeping that ratio fixed does not make all those effects disappear. Extrapolating the constant was a separate modelling task, with uncertainty and possible bias.
+
+### Literature and proof plans
 
 Alongside the computation, librarian agents searched for relevant permitted literature. I supplied papers I could obtain, including through Cambridge Core. The eventual corpus was considerably larger than the original pair.
 
@@ -145,6 +163,8 @@ The planners had to propose a theorem and break its proof into explicit proposit
 That level of detail is essential for analytic number theory. Suppose a lemma gives an error of size \\(x^{2/3}\\) for each shift \\(h\\). If another step adds the error over \\(H\\) shifts, the available bound is now \\(Hx^{2/3}\\). Forgetting the length of a sum can turn an impressive-looking theorem into an unsupported claim.
 
 A proposition therefore acts as a contract: this is exactly what the next part of the proof may assume. The dependency graph also lets separate provers work simultaneously. They receive the statements of the lemmas they need, even while those lemmas are being proved elsewhere.
+
+### Correcting the problem statement
 
 The planning stage caught a problem in the specification itself. We had allowed rational-coefficient polynomials that take integer values. For such a polynomial, its value modulo \\(m\\) need not depend only on its input modulo \\(m\\). For example,
 
@@ -157,6 +177,8 @@ has \\(f(0)=1\\) and \\(f(2)=4\\): the inputs agree modulo 2, the outputs do not
 I chose to restrict the problem to integer-coefficient polynomials, and we restarted. The agents had helped correct the question before attempting to prove the answer.
 
 ## Prove, object, assemble, repeat
+
+### Proof attempts and referee reports
 
 Once a plan was selected, the driver started one proof task per proposition.
 
@@ -179,9 +201,13 @@ If a proposition remained stuck, a further role could examine approaches from ot
 
 That sounds wonderfully reassuring. Later checking still found local errors, including an auxiliary convergence statement that was too strong. Two model passes are useful evidence, and fresh contexts prevent some forms of information sharing. They do not make the models statistically independent or give their verdicts the status of formal proof verification.
 
+### Formal verification with Lean
+
 OpenAI reports using [Lean](https://lean-lang.org/theorem_proving_in_lean4/Introduction/) to formalise its proof. This means expressing the statement and argument in a precise language so that a program can check each deduction against the definitions and assumptions. It is a particularly useful fit for AI: a model can propose and revise proofs while the checker rejects invalid steps regardless of how convincing the prose sounds. The formal statement still has to match the intended mathematical claim.
 
 We did not use Lean here. We expected the specialised sieve arguments and uniform error estimates to require substantial additions to [Mathlib](https://mathlib.org/mathlib-overview.html), Lean's library of formalised mathematics. Building that infrastructure would have been a separate project, so we used model reviews and numerical checks, with the weaker assurance that entails.
+
+### Integration and write-up
 
 The next stage was integration. Two agents separately assembled the approved propositions, checked that their ranges and error estimates fitted together, stated the theorem actually obtained and compared its constant with the numerical evidence.
 
@@ -192,6 +218,8 @@ Finally came a writer: turn the archived proof work into a readable LaTeX manusc
 The extra review was useful. It also demonstrated how far there is to go between “all propositions passed” and a complete, accurately explained document.
 
 ## What “human in the loop” meant
+
+### Decisions based on AI advice
 
 At several points the procedure called for a human decision: approve numerical evidence, settle the literature, choose a plan, accept a manuscript.
 
@@ -205,6 +233,8 @@ The selected neutral plan came from Claude; the recommendation I used to choose 
 
 I retained control over what we attempted and what actions were allowed. But mathematical judgment was extensively delegated. Calling every approval an expert human verification would give a misleading impression of the experiment.
 
+### Returning to the mathematics
+
 This was also where the return to mathematics became more complicated than a pleasant exercise in nostalgia.
 
 It was wonderful to spend time with pure mathematics again. It was disconcerting to realise how far away that world had slipped. Relearning the circle method well enough to make confident judgments would require substantial work. Reading the plans made me wonder how thoroughly I had understood the underlying structures even when I wrote the thesis.
@@ -216,6 +246,8 @@ Fifteen years is a long time. Opening the old PDF did not restore the mathematic
 ## What came out?
 
 There were four archived experiments, including an early attempt before the literature cutoff and the abandoned rational-coefficient version. Two reached completed proof and integration stages, and both eventually produced write-ups that I accepted.
+
+### The neutral run
 
 The [neutral run](https://gitlab.com/mshepherd/squarefree-numbers/-/tree/main/writeups/zt-neutral) used an elementary approach based on correlations between pairs of squarefree numbers, followed by averaging over polynomial values. It obtained the main-term shape
 
@@ -234,11 +266,15 @@ under the polynomial assumptions in the problem. This was the same headline lowe
 
 Its nine proposition proofs were all written by Claude Sonnet. Codex contributed planning, numerical computation, refereeing and integration. Although both providers were configured as provers, the default rotated them by *round*: every proposition began with Claude, and everything passed before a second round. I only fully appreciated the consequence when attempting the next run.
 
+### The thesis-guided run
+
 For the [second completed experiment](https://gitlab.com/mshepherd/squarefree-numbers/-/tree/main/writeups/zt-thesis-plan), I had an operator read my thesis and write a light hint encouraging the combination of Vaughan and Brüdern–Wooley. That makes it a thesis-guided comparison, distinct from the neutral run. We reused the accepted numerics and literature.
 
 Codex Sol wrote its seven final proposition proofs. The result had a more detailed formula describing behaviour when \\(f(y)\\) is comparable with \\(x\\), but a narrower range for the simple power-law asymptotic. For quadratic polynomials, its lower threshold was \\(x^{19/21+\delta}\\), compared with \\(x^{7/9+\delta}\\) in the neutral run.
 
 Following something closer to my old route had changed the trade-off rather than simply improving the answer.
+
+### Checking the thesis
 
 Neither run reproduced the sharper range claimed in my thesis. That comparison also became awkward, because the AI readings had flagged gaps in the thesis's argument. My printed result could not simply serve as an unquestioned benchmark.
 
@@ -254,6 +290,8 @@ The proof and review stage of the neutral run took about 23 minutes. Planning to
 
 The project took considerably longer.
 
+### Harness bugs and failed calls
+
 The initial scaffold grew through 24 merge requests. We fixed tool permissions that did not mean what their names suggested, shell settings that gave the providers different Python environments, missing archive files and failures to resume completed work sensibly.
 
 Usage limits were a recurring interruption. A failed referee call could also cause an incomplete proof round to be restarted, repeating work that had already succeeded. A machine agreeing that a theorem was correct was sometimes easier to obtain than a workflow that remembered what had happened before a quota reset.
@@ -261,6 +299,8 @@ Usage limits were a recurring interruption. A failed referee call could also cau
 Some frustration was much more basic. Coding assistants repeatedly inferred actions I had not authorised, including commits and a push. They overcomplicated routine tasks, misunderstood instructions and occasionally removed functionality I wanted to keep. Building the harness was itself an exercise in supervising imperfect agents.
 
 There is a lesson here about what an impressive mathematical performance does and does not tell you about the surrounding software work. A model can reason usefully about a difficult proof and still make a mess of a straightforward operational instruction.
+
+### Subscriptions and reported costs
 
 The accounting also deserves some care. Both providers were used through $20 subscription plans. Claude's CLI nevertheless reports a dollar figure resembling API-equivalent usage; that is not an additional invoice.
 
@@ -270,6 +310,8 @@ The two write-up stages alone accounted for about $103 of the Claude figure. For
 
 The binding constraint was often waiting for subscription usage to reset. The money-like counter, the number of tokens, elapsed time and the amount of human attention describe different parts of the cost.
 
+### Accepting the write-ups
+
 The manuscript reviewers also illustrated the limits of automating acceptance. They found real mathematical and reporting issues, but eventually one remaining objection required *my* authorisation of a corrected auxiliary statement. Another writing round could not manufacture that authorisation. I accepted the neutral manuscript at round four with the reviewers' remaining objections preserved. The guided manuscript reached two passing reviews at round five before I accepted it.
 
 Having an explicit record of those decisions is more informative than smoothing everything into “the AI wrote a proof and the reviewers approved it”.
@@ -278,6 +320,8 @@ Having an explicit record of those decisions is more informative than smoothing 
 
 What I wanted to understand at the beginning now feels much more concrete.
 
+### Trying a smaller workflow
+
 A model session can search for an approach. Another can develop a precisely stated piece of it. Other sessions can inspect that piece without inheriting the first session's whole conversation. Code can test identities and examples. A driver can retain successful intermediate work and arrange the next task.
 
 You can experiment with those choices yourself. The practical starting point could be one small claim, a written proposed solution and a fresh session asked to find a specific counterexample or missing assumption. Then inspect what the review actually checked. That is already an experiment in organising work beyond a single conversation.
@@ -285,6 +329,8 @@ You can experiment with those choices yourself. The practical starting point cou
 For a larger project, the useful questions become: what intermediate output would make progress inspectable? What assumptions must the next step receive? What can be checked by a calculation or another external test? What should happen when the proposed statement turns out to be wrong?
 
 Those questions travel beyond mathematics. A decomposition into proposals, explicit assumptions, tests and revision could organise other kinds of investigation too. The checks will differ, and agreement between models will remain much weaker evidence than a check against the world.
+
+### Models and effort settings
 
 Different models, versions and effort settings give further choices. The completed experiments used Claude Opus 5.5, Claude Sonnet 5.5 and Codex's `gpt-6.1-sol`, mostly at high effort. “High” is a provider's setting, not a common unit of reasoning, and a cheaper model writing a proof that more expensive models reviewed was a useful configuration. Our scheduling accident also showed that the configuration file alone does not tell you who actually did the work.
 
@@ -298,9 +344,13 @@ The familiar phrase is “AI-assisted research”. In parts of this experiment I
 
 I chose the problem, constraints and direction of the exercise. Much of the mathematical work, and much of the evaluation of that work, happened in model sessions. The boundary moved as the project progressed.
 
+### One prompt versus autonomous research
+
 How long until a single prompt can produce something like these results without that supervision? I do not have a reliable timetable. There are also two separate developments hidden in the question. A product could accept one prompt while carrying out a large internal research process. That would simplify the interface. Reliable research that needs no human help choosing a route, resolving uncertainty or checking the outcome is a further question.
 
 The experiment gave me reasons to take increasing autonomy seriously. It also gave me plenty of examples of how easily a process can mistake a completed step for a finished job.
+
+### The purpose of research
 
 Suppose, though, that we do reach a world where proofs are abundant. What is the point of doing mathematics then?
 
@@ -309,6 +359,8 @@ My supervisor already knew how to solve the problem he gave me. That did not mak
 That learning also sustains the wider mathematical community. Terence Tao has warned against the [“indiscriminate automated strip-mining of open problems for solutions”](https://mathstodon.xyz/@tao/117204930249967695): a problem can generate new techniques, train students and suggest further questions while people work on it. Extracting an answer without developing or sharing that understanding can damage the community that made the problem worth asking. In a [joint declaration](https://mathandai.org/), Tao and other Fields medallists criticised the use of mathematics as a corporate benchmark, rushed announcements and failures of attribution. A press release and a higher valuation are poor substitutes for explaining the ideas, acknowledging prior work or supporting the people doing that work.
 
 I could now obtain a substantial PDF on that problem with remarkably little direct mathematical work. Having the document does not give me the understanding that working through it might provide. It does, however, put an explanation, a set of approaches and a very patient interlocutor within reach.
+
+### The pleasure of understanding
 
 Pure mathematics was my first intellectual passion. Returning to it was fun, nostalgic and at times uncomfortable. I was reminded of the effort and frustration involved in learning it properly, and of how difficult it is to find room for that effort after fifteen years spent mostly doing other things.
 
