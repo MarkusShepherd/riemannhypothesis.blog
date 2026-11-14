@@ -287,7 +287,13 @@ Following something closer to my old route had changed the trade-off rather than
 
 ### Checking the thesis
 
-Neither run reproduced the sharper range claimed in my thesis. That comparison also became awkward, because the AI readings had flagged gaps in the thesis's argument. My printed result could not simply serve as an unquestioned benchmark.
+For quadratic moduli, my thesis claimed a lower threshold of \\(x^{2/3+\varepsilon}\\). Neither run reached it. But the AI readings found gaps that leave that range unestablished by the printed proof, so it could not simply serve as an unquestioned benchmark.
+
+One problem was exactly the kind of bookkeeping error discussed [earlier](#literature-and-proof-plans). On [printed page 22](/schepke_distribution_of_squarefree_numbers_in_arithmetic_progressions.pdf#page=25), an error bound for each shift \\(h\\) is summed over shifts up to \\(x^{3/4}\\), but the claimed total loses the cost of that summation. Even the contribution from \\(q=1\\) to the displayed bound is too large for the inequality that follows.
+
+Another occurs in [Lemma 7.2](/schepke_distribution_of_squarefree_numbers_in_arithmetic_progressions.pdf#page=48). Counting entries in residue classes produces a bounded oscillating error. The proof treats it as a constant plus a remainder tending to zero. A bound on an error does not establish that it converges. Here the counting sum is a step function of real \\(y\\), which also rules out the claimed linear approximation with a constant offset and a vanishing remainder.
+
+These objections came from separate AI readings of the thesis. The completed runs used different arguments, so their passing reviews do not demonstrate that the harness caught or repaired these particular gaps.[^thesis-range]
 
 There was one particularly concrete correction. The thesis used the residue of \\(\zeta(2s+4)\\) at \\(s=-3/2\\) as though it were 1. It is \\(1/2\\): the change of variable contributes a factor of two. That propagated into the leading constant.
 
@@ -386,5 +392,7 @@ Fifteen years later, I would quite like to understand my thesis.
 [^dehnert]: I have been unable to obtain a copy or contact the author. His paper would be a much better benchmark for the AI work than my thesis, having been published in a journal and subjected to a different level of peer review. Unfortunately, I couldn't justify shelling out an unreasonable amount of cash to Springer for a single article. If any reader can help me obtain a copy or reach the author, a comparison with the AI results would make a great follow-up.
 
 [^bw11-gap]: See equation (21) on page 8 and Lemma 3 on page 9 of the [paper (PDF)](https://www.math.purdue.edu/~twooley/publ/2011sparse.pdf#page=8). For the polynomial above, the lemma's definition gives \\(w_1(2)=1\\), \\(w_1(3)=-1\\) and \\(w_1(6)=-1/3\\), whereas multiplicativity would require \\(w_1(6)=w_1(2)w_1(3)=-1\\).
+
+[^thesis-range]: In a separate comparison on 6 November, after the experiments, Codex also identified a counterexample to the pointwise exponential-sum bound in [Lemma 5.4](/schepke_distribution_of_squarefree_numbers_in_arithmetic_progressions.pdf#page=34). Take \\(f(t)=(t+1)^2\\) and \\(x=4p^4\\) for a large prime \\(p\\). Restricting the sum \\(T_f\\) to \\(x/2<f(k)\le x\\) leaves only \\(h=1\\). Its average over \\(\alpha=a/p^2\\) with \\(a\\) coprime to \\(p\\) has size of order \\(p^3\\): only the terms with \\(p\mid k+1\\) survive. Yet the lemma would bound each of the two partial sums whose difference gives this restricted sum by \\(O(p^2\log p)\\). The pointwise bound therefore fails as stated. This later diagnosis was not an output of either harness run and does not supply a replacement estimate that recovers the thesis's claimed range.
 
 [^accounting]: Five earlier probes recovered from a local backup bring the totals to 146 invocations, $166.91 in Claude-reported usage and about 634,000 Codex output tokens. The 141-invocation subtotal uses the main archived research and preserved write-up ledgers. Neither figure includes all operator conversations, initial baseline chats, development work or human time.
