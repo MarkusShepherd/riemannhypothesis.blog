@@ -179,6 +179,10 @@ If a proposition remained stuck, a further role could examine approaches from ot
 
 That sounds wonderfully reassuring. Later checking still found local errors, including an auxiliary convergence statement that was too strong. Two model passes are useful evidence, and fresh contexts prevent some forms of information sharing. They do not make the models statistically independent or give their verdicts the status of formal proof verification.
 
+OpenAI reports using [Lean](https://lean-lang.org/theorem_proving_in_lean4/Introduction/) to formalise its proof. This means expressing the statement and argument in a precise language so that a program can check each deduction against the definitions and assumptions. It is a particularly useful fit for AI: a model can propose and revise proofs while the checker rejects invalid steps regardless of how convincing the prose sounds. The formal statement still has to match the intended mathematical claim.
+
+We did not use Lean here. We expected the specialised sieve arguments and uniform error estimates to require substantial additions to [Mathlib](https://mathlib.org/mathlib-overview.html), Lean's library of formalised mathematics. Building that infrastructure would have been a separate project, so we used model reviews and numerical checks, with the weaker assurance that entails.
+
 The next stage was integration. Two agents separately assembled the approved propositions, checked that their ranges and error estimates fitted together, stated the theorem actually obtained and compared its constant with the numerical evidence.
 
 This was two checks of one collection of proposition proofs. It was not two independent discoveries of the whole argument.
