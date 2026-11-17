@@ -235,13 +235,11 @@ I retained control over what we attempted and what actions were allowed. But mat
 
 ### Returning to the mathematics
 
-This was also where the return to mathematics became more complicated than a pleasant exercise in nostalgia.
-
 It was wonderful to spend time with pure mathematics again. It was disconcerting to realise how far away that world had slipped. Relearning the circle method well enough to make confident judgments would require substantial work. Reading the plans made me wonder how thoroughly I had understood the underlying structures even when I wrote the thesis.
 
 The ease with which the models took my old work apart compounded that feeling. An eloquent critique is itself something to check, of course. Still, watching a model immediately point to a passage I would need hours to reconstruct was quite an experience.
 
-Fifteen years is a long time. Opening the old PDF did not restore the mathematical fluency I remembered having.
+Opening the old PDF did not restore the mathematical fluency I remembered having.
 
 ## What came out?
 
@@ -346,13 +344,13 @@ My supervisor already knew how to solve the problem he gave me. That did not mak
 
 That learning also sustains the wider mathematical community. Terence Tao has warned against the [“indiscriminate automated strip-mining of open problems for solutions”](https://mathstodon.xyz/@tao/117204930249967695): a problem can generate new techniques, train students and suggest further questions while people work on it. Extracting an answer without developing or sharing that understanding can damage the community that made the problem worth asking. In a [joint declaration](https://mathandai.org/), Tao and other Fields medallists criticised the use of mathematics as a corporate benchmark, rushed announcements and failures of attribution. A press release and a higher valuation are poor substitutes for explaining the ideas, acknowledging prior work or supporting the people doing that work.
 
-I could now obtain a substantial PDF on that problem with remarkably little direct mathematical work. Having the document does not give me the understanding that working through it might provide. It does, however, put an explanation, a set of approaches and a very patient interlocutor within reach.
+I could now obtain a substantial PDF on that problem with remarkably little direct mathematical work. Having the document does not give me the understanding that working through it might provide.
 
 ### The pleasure of understanding
 
 Pure mathematics was my first intellectual passion. Returning to it was fun, nostalgic and at times uncomfortable. I was reminded of the effort and frustration involved in learning it properly, and of how difficult it is to find room for that effort after fifteen years spent mostly doing other things.
 
-These tools make it easier to begin again. I can ask for an explanation of a forgotten technique, compare two approaches or explore a calculation without first committing myself to months of reconstructing the prerequisites. I can also ask the machines to do so much that I understand very little of the result. Both possibilities were present throughout this exercise.
+These tools make it easier to begin again. I can ask for an explanation of a forgotten technique, compare two approaches or explore a calculation without first committing myself to months of reconstructing the prerequisites.
 
 For me, the attraction of mathematics has always included the sheer joy and beauty of understanding: seeing why an argument works, how two ideas connect or why something that looked mysterious has a surprisingly simple explanation.
 
