@@ -25,7 +25,7 @@ Obviously, there is more to it than opening ChatGPT and typing:
 
 OpenAI's [account of its Navier–Stokes effort](https://openai.com/index/navier-stokes-solution/) describes an internal model, roughly 10,000 concurrent agents in the successful group, 88 hours to a proposed solution and a further 17 hours of [Lean](https://en.wikipedia.org/wiki/Lean_(proof_assistant)) formalisation and verification. Groups explored different problem variants; an intermediate Euler result was fed back into the search; Codex consolidated insights between groups. That is a substantial research process behind a short description of a breakthrough.
 
-The announcement also came amid a serious dispute over unpublished research and scientific credit. In [his public statement](https://cims.nyu.edu/~tristanb/statement.pdf), Tristan Buckmaster questioned whether his and Levent Alpöge's private Codex sessions had informed OpenAI's work. He reports two proposals: publish their Euler result with OpenAI's Navier–Stokes result following the next day, or have Buckmaster alone write up the Navier–Stokes result and attribute the solution to OpenAI's model. He says Sébastien Bubeck twice sought Alpöge's removal from authorship and complained that Alpöge worked at Anthropic. [OpenAI denies using their unpublished work or Codex sessions](https://openai.com/index/navier-stokes-solution/#concurrent-work). Buckmaster himself explicitly said he did not know whether their data had been used; his account of the publication and authorship discussions is a separate, deeply troubling part of the story.
+The announcement also came amid a serious dispute over unpublished research and scientific credit. In [his public statement](https://cims.nyu.edu/~tristanb/statement.pdf), Tristan Buckmaster questioned whether his and Levent Alpöge's private Codex sessions had informed OpenAI's work and reported demands to remove Alpöge from authorship.[^buckmaster] [OpenAI denies using their unpublished work or Codex sessions](https://openai.com/index/navier-stokes-solution/#concurrent-work). Buckmaster himself said he did not know whether their data had been used; his account of the authorship discussions remains deeply troubling.
 
 The Siegel-zero story also had a subsequent human exposition and simplification, including papers by [William Banks](https://arxiv.org/abs/2610.15483) and [Bryce Kerr](https://arxiv.org/abs/2610.21099). I am not going to adjudicate either claimed breakthrough here. What interested me was the work between posing a question and obtaining an argument someone could examine.
 
@@ -359,6 +359,8 @@ For me, the attraction of mathematics has always included the sheer joy and beau
 A supply of proofs does not use up those experiences. It may give me more opportunities to have them.
 
 Fifteen years later, I would quite like to understand my thesis.
+
+[^buckmaster]: Buckmaster reports two proposals: publish their Euler result with OpenAI's Navier–Stokes result following the next day, or have Buckmaster alone write up the Navier–Stokes result and attribute the solution to OpenAI's model. He says Sébastien Bubeck twice sought Alpöge's removal from authorship and complained that Alpöge worked at Anthropic.
 
 [^density-normalisation]: The coefficient \\(g(q,l)\\) measures density relative to *all* integers up to \\(x\\), rather than just the terms of the progression. Each row of the table contains about \\(x/2\\) terms up to \\(x\\), so \\(g(2,1)=4/\pi^2\\) and \\(g(2,0)=2/\pi^2\\).
 
