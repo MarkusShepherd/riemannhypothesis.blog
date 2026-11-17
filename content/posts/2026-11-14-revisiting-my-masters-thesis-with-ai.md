@@ -58,20 +58,9 @@ Take the simplest arithmetic progressions, the odd and even numbers. The squaref
 
 Every second even number is divisible by 4 and therefore excluded. Odd numbers have no such restriction from the prime 2. In the long run, about \\(8/\pi^2\approx81.1\\%\\) of odd numbers and \\(4/\pi^2\approx40.5\\%\\) of even numbers are squarefree.
 
-Write \\(Q(x;q,l)\\) for the number of squarefree positive integers up to \\(x\\) that are congruent to \\(l\\) modulo \\(q\\). For each fixed progression, this count has a linear main term \\(g(q,l)x\\). The coefficient is positive unless a prime square divides both \\(q\\) and \\(l\\), forcing every term to have that square divisor. The multiples of 4 are an example of this obstruction.
+Write \\(Q(x;q,l)\\) for the number of squarefree positive integers up to \\(x\\) that are congruent to \\(l\\) modulo \\(q\\). For each fixed progression, this count has a linear main term \\(g(q,l)x\\).[^density-normalisation] The coefficient is positive unless a prime square divides both \\(q\\) and \\(l\\), forcing every term to have that square divisor. The multiples of 4 are an example of this obstruction.
 
-Here \\(g(q,l)\\) measures density relative to *all* integers up to \\(x\\), rather than just the terms of the progression. Each row above contains about \\(x/2\\) terms up to \\(x\\), so \\(g(2,1)=4/\pi^2\\) and \\(g(2,0)=2/\pi^2\\).
-
-### Comparison with primes
-
-Primes, by comparison, become progressively rarer and have zero unweighted density. The corresponding prime-distribution problem usually counts each prime \\(p\\) with weight \\(\log p\\), giving the linear main term
-
-\\[
-\sum_{p\le x,\ p\equiv l\pmod q}\log p
-\sim \frac{x}{\varphi(q)},
-\\]
-
-for fixed \\(q\\) with \\(\gcd(q,l)=1\\). Here \\(\varphi(q)\\) counts the residue classes coprime to \\(q\\). Squarefree numbers need no extra weight and can have positive density even in non-coprime classes, as the even numbers illustrate.
+Primes, by comparison, become progressively rarer and have zero unweighted density. For a fixed modulus, weighting each prime \\(p\\) by \\(\log p\\) gives a linear main term in each coprime residue class.[^prime-weight] Squarefree numbers need no extra weight and can have positive density even in non-coprime classes, as the even numbers illustrate.
 
 ### Variance and typical errors
 
@@ -98,7 +87,7 @@ V_f(x,y)=\sum_{1\le k\le y} f^{\prime}(k)
 
 The weight \\(f^{\prime}(k)\\) compensates for the spacing between successive polynomial values: for \\(f(k)=k^2+1\\), the gaps are \\(2k+1\\), close to \\(f^{\prime}(k)=2k\\). This makes the weighted sparse sum comparable in scale with a sum over all moduli up to \\(f(y)\\). The question is to obtain an asymptotic formula: a main term, an explicit constant depending on \\(f\\) and an error estimate small enough to make the formula informative.
 
-You do not need to understand the formula to follow the experiment. It matters that there are several distinct things to get right. Predicting the right scale is one task; finding the constant is another; proving a sufficiently small error over the claimed range is another again.
+You do not need to understand the formula to follow the experiment. The number theory gives us a concrete problem for exploring how agents develop arguments, check each other's work and assemble a proof. If you want to build your own harness for other kinds of work, those are useful questions too.
 
 ## Before the harness: two single chats
 
@@ -370,6 +359,17 @@ For me, the attraction of mathematics has always included the sheer joy and beau
 A supply of proofs does not use up those experiences. It may give me more opportunities to have them.
 
 Fifteen years later, I would quite like to understand my thesis.
+
+[^density-normalisation]: The coefficient \\(g(q,l)\\) measures density relative to *all* integers up to \\(x\\), rather than just the terms of the progression. Each row of the table contains about \\(x/2\\) terms up to \\(x\\), so \\(g(2,1)=4/\pi^2\\) and \\(g(2,0)=2/\pi^2\\).
+
+[^prime-weight]: More precisely, for fixed \\(q\\) with \\(\gcd(q,l)=1\\),
+
+    \\[
+    \sum_{p\le x,\ p\equiv l\pmod q}\log p
+    \sim \frac{x}{\varphi(q)},
+    \\]
+
+    where \\(\varphi(q)\\) counts the residue classes coprime to \\(q\\).
 
 [^pollination]: OpenAI describes [using Codex to consolidate insights from different groups into follow-up prompts](https://openai.com/index/navier-stokes-solution/). My harness had an optional “pollinator” that could inspect other plans to help with a stuck proposition or flag that its statement needed changing. Neither completed run used it.
 
