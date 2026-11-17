@@ -136,6 +136,7 @@ sitepackages/
 .worktrees/
 
 # others
+bin/
 .~*
 *.bk
 *.feather
