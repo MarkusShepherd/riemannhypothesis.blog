@@ -130,6 +130,7 @@ sitepackages/
 .hugo_build.lock
 
 # others
+bin/
 .~*
 *.bk
 *.feather
