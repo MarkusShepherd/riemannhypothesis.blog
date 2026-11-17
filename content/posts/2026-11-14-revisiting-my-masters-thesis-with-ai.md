@@ -208,9 +208,7 @@ else:
 
 There was also an escape hatch for a prover to say that its assigned proposition was false or ill-posed. A system that insists on receiving a proof of everything it asks is inviting the models to invent one.
 
-Both completed experiments eventually had every proposition pass its two referees in the first mathematical review round.
-
-That sounds wonderfully reassuring. Later checking still found local errors, including an auxiliary convergence statement that was too strong. Two model passes are useful evidence, and fresh contexts prevent some forms of information sharing. They do not make the models statistically independent or give their verdicts the status of formal proof verification.
+Both completed experiments eventually had every proposition pass its two referees in the first mathematical review round. Fresh contexts limited information sharing between the referees; they did not make the models statistically independent.
 
 ### Formal verification with Lean
 
@@ -220,13 +218,13 @@ We did not use Lean here. We expected the specialised sieve arguments and unifor
 
 ### Integration and write-up
 
-The next stage was integration. Two agents separately assembled the approved propositions, checked that their ranges and error estimates fitted together, stated the theorem actually obtained and compared its constant with the numerical evidence.
+The next stage was integration. Two agents separately assembled the same set of approved proposition proofs, checked that their ranges and error estimates fitted together, stated the theorem actually obtained and compared its constant with the numerical evidence.
 
-This was two checks of one collection of proposition proofs. It was not two independent discoveries of the whole argument.
+A writer then turned those proofs into a LaTeX manuscript with explanations and numerical tables, regenerated the computations and compiled the document. Two further reviewers checked the whole manuscript, and their objections fed another writing round.
 
-Finally came a writer: turn the archived proof work into a readable LaTeX manuscript, with explanations and numerical tables, regenerate the computations, compile the document and submit it to two more reviewers. Their comments fed another writing round.
+The manuscript reviews found further mathematical and reporting errors, including an auxiliary convergence claim that was too strong. I accepted the neutral manuscript with the remaining objections preserved; the guided manuscript passed both reviewers before I accepted it.[^manuscript-acceptance]
 
-The extra review demonstrated how far there is to go between “all propositions passed” and a complete, accurately explained document.
+I relied largely on further AI assessments in making those decisions. I had not independently reconstructed every proof.
 
 ## What “human in the loop” meant
 
@@ -299,8 +297,6 @@ There was one particularly concrete correction. The thesis used the residue of \
 
 The [comparison and numerical checks](https://gitlab.com/mshepherd/riemannhypothesis.blog/-/work_items/4#note_4130461384) supported about \\(0.138083\\) for \\(f(k)=k^2+1\\), rather than the printed \\(0.276165\\). Both completed experiments obtained the corrected value. A comparison following the single-chat baselines had already exposed the discrepancy.
 
-I have not independently reconstructed every proof in these packages. “Accepted” records my decision about the experiment and the manuscript, informed largely by further AI assessments. No formal proof checker verified our results.
-
 ## Making the harness work
 
 The proof and review stage of the neutral run took about 23 minutes. Planning took about an hour; the two integrations took another fourteen minutes.
@@ -326,12 +322,6 @@ Across the [main historical ledgers](https://gitlab.com/mshepherd/squarefree-num
 The two write-up stages alone accounted for about $103 of the Claude figure. For comparison, the entire neutral research run, including numerics, planning, proof, review and integration, accounted for about $23, plus 160,000 Codex output tokens. Those figures exclude the surrounding operator sessions and my time.
 
 The binding constraint was often waiting for subscription usage to reset. The money-like counter, the number of tokens, elapsed time and the amount of human attention describe different parts of the cost.
-
-### Accepting the write-ups
-
-The manuscript reviewers also illustrated the limits of automating acceptance. They found real mathematical and reporting issues, but eventually one remaining objection required *my* authorisation of a corrected auxiliary statement. Another writing round could not manufacture that authorisation. I accepted the neutral manuscript at round four with the reviewers' remaining objections preserved. The guided manuscript reached two passing reviews at round five before I accepted it.
-
-Having an explicit record of those decisions is more informative than smoothing everything into “the AI wrote a proof and the reviewers approved it”.
 
 ## Beyond a single prompt
 
@@ -390,6 +380,8 @@ Fifteen years later, I would quite like to understand my thesis.
 [^bw11-gap]: See equation (21) on page 8 and Lemma 3 on page 9 of the [paper (PDF)](https://www.math.purdue.edu/~twooley/publ/2011sparse.pdf#page=8). For the polynomial above, the lemma's definition gives \\(w_1(2)=1\\), \\(w_1(3)=-1\\) and \\(w_1(6)=-1/3\\), whereas multiplicativity would require \\(w_1(6)=w_1(2)w_1(3)=-1\\).
 
 [^parry]: For example, [Tomos Parry's 2021 paper](https://doi.org/10.5802/jtnb.1163) ([PDF](https://www.numdam.org/item/10.5802/jtnb.1163.pdf#page=4)) develops stronger variance estimates for squarefree numbers in arithmetic progressions at a fixed modulus, including all residue classes. The improved error terms make the asymptotic valid over a wider range of moduli. Alongside Dehnert's work on the sparse-modulus problem itself, this illustrates how the subject has progressed since my thesis.
+
+[^manuscript-acceptance]: I accepted the neutral manuscript at round four with both reviewers' `revise` verdicts preserved. One remaining objection concerned my authorisation of a corrected auxiliary convergence statement; another round of model calls could not supply that authorisation. The guided manuscript received two passing reviews at round five before I accepted it.
 
 [^thesis-range]: In a separate comparison on 6 November, after the experiments, Codex also identified a counterexample to the pointwise exponential-sum bound in [Lemma 5.4](/schepke_distribution_of_squarefree_numbers_in_arithmetic_progressions.pdf#page=34). Take \\(f(t)=(t+1)^2\\) and \\(x=4p^4\\) for a large prime \\(p\\). Restricting the sum \\(T_f\\) to \\(x/2<f(k)\le x\\) leaves only \\(h=1\\). Its average over \\(\alpha=a/p^2\\) with \\(a\\) coprime to \\(p\\) has size of order \\(p^3\\): only the terms with \\(p\mid k+1\\) survive. Yet the lemma would bound each of the two partial sums whose difference gives this restricted sum by \\(O(p^2\log p)\\). The pointwise bound therefore fails as stated. This later diagnosis was not an output of either harness run and does not supply a replacement estimate that recovers the thesis's claimed range.
 
