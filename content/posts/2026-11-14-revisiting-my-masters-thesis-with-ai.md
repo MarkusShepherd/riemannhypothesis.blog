@@ -135,7 +135,7 @@ Its output is a proof file, or a report that the statement is defective. A refer
 
 The agents in my harness do not chat with one another. The driver copies files between stages; those copies determine what each model can know from the experiment. Persistent state lives in those files, so the next session can be fresh.
 
-This already explains a good deal of the apparent mystery. You can arrange for several sessions to explore different approaches, have other sessions check their work and preserve intermediate results for later use. You decide what information moves between them.
+You can arrange for several sessions to explore different approaches, have other sessions check their work and preserve intermediate results for later use. You decide what information moves between them.
 
 It also makes the word *swarm* rather grand for my version. I limited the system to two simultaneous agent invocations, largely because I was working within ordinary subscription limits. Over the course of the experiment there were many sessions, with different roles. Two at a time was quite enough to keep me occupied.
 
@@ -228,7 +228,7 @@ This was two checks of one collection of proposition proofs. It was not two inde
 
 Finally came a writer: turn the archived proof work into a readable LaTeX manuscript, with explanations and numerical tables, regenerate the computations, compile the document and submit it to two more reviewers. Their comments fed another writing round.
 
-The extra review was useful. It also demonstrated how far there is to go between “all propositions passed” and a complete, accurately explained document.
+The extra review demonstrated how far there is to go between “all propositions passed” and a complete, accurately explained document.
 
 ## What “human in the loop” meant
 
@@ -337,8 +337,6 @@ Having an explicit record of those decisions is more informative than smoothing 
 
 ## Beyond a single prompt
 
-What I wanted to understand at the beginning now feels much more concrete.
-
 ### Trying a smaller workflow
 
 A model session can search for an approach. Another can develop a precisely stated piece of it. Other sessions can inspect that piece without inheriting the first session's whole conversation. Code can test identities and examples. A driver can retain successful intermediate work and arrange the next task.
@@ -354,8 +352,6 @@ Those questions travel beyond mathematics. A decomposition into proposals, expli
 Different models, versions and effort settings give further choices. The completed experiments used Claude Opus 5.5, Claude Sonnet 5.5 and GPT-6.1 Sol, mostly at high effort. “High” is a provider's setting, not a common unit of reasoning, and a cheaper model writing a proof that more expensive models reviewed was a useful configuration. Our scheduling accident also showed that the configuration file alone does not tell you who actually did the work.
 
 I would be reluctant to claim that this setup was optimal. The single-chat baselines had already proposed the neutral run's headline range. What I gained was a much clearer picture of the process and its failure modes, together with a record that could be examined.
-
-That is plenty to learn from an experiment.
 
 ## Who is assisting whom?
 
