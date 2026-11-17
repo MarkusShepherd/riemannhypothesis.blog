@@ -199,7 +199,7 @@ else:
 
 There was also an escape hatch for a prover to say that its assigned proposition was false or ill-posed. A system that insists on receiving a proof of everything it asks is inviting the models to invent one.
 
-Both completed experiments eventually had every proposition pass its two referees in the first mathematical review round. Fresh contexts limited information sharing between the referees; they did not make the models statistically independent.
+Both completed experiments had every proposition pass its two referees in the first mathematical review round. Fresh contexts limited information sharing between the referees; they did not make the models statistically independent.
 
 ### Formal verification with Lean
 
@@ -213,7 +213,7 @@ The next stage was integration. Two agents separately assembled the same set of 
 
 A writer then turned those proofs into a LaTeX manuscript with explanations and numerical tables, regenerated the computations and compiled the document. Two further reviewers checked the whole manuscript, and their objections fed another writing round.
 
-The manuscript reviews found further mathematical and reporting errors, including an auxiliary convergence claim that was too strong. I accepted the neutral manuscript with the remaining objections preserved; the guided manuscript passed both reviewers before I accepted it.[^manuscript-acceptance]
+The manuscript reviews found further mathematical and reporting errors, including an auxiliary convergence claim that was too strong. I accepted the [neutral manuscript](#the-neutral-run) with the remaining objections preserved; the [thesis-guided manuscript](#the-thesis-guided-run) passed both reviewers before I accepted it.[^manuscript-acceptance]
 
 I relied largely on further AI assessments in making those decisions. I had not independently reconstructed every proof.
 
@@ -262,7 +262,7 @@ x^{7/9+\delta}\le f(y)\le x^{1-\delta},
 
 under the polynomial assumptions in the problem. This matched the lower threshold proposed in the [single-chat sketches](#before-the-harness-two-single-chats), now with the detailed proof and review record described above.
 
-Its nine proposition proofs were all written by Claude Sonnet 5.5. Codex contributed planning, numerical computation, refereeing and integration. Having a cheaper model write proofs that more expensive models reviewed was a useful configuration. Although both providers were configured as provers, the default rotated them by *round*: every proposition began with Claude, and everything passed before a second round. I only fully appreciated the consequence when attempting the next run.
+Its nine proposition proofs were all written by Claude Sonnet 5.5. Codex contributed planning, numerical computation, refereeing and integration. Having a cheaper model write proofs that more expensive models reviewed was a useful configuration. Although both providers were configured as provers, the default rotated them by *round*: every proposition began with Claude, and everything passed before a second round.
 
 ### The thesis-guided run
 
@@ -361,11 +361,11 @@ Fifteen years later, I would quite like to understand my thesis.
 
 [^bw11-gap]: See equation (21) on page 8 and Lemma 3 on page 9 of the [paper (PDF)](https://www.math.purdue.edu/~twooley/publ/2011sparse.pdf#page=8). For the polynomial above, the lemma's definition gives \\(w_1(2)=1\\), \\(w_1(3)=-1\\) and \\(w_1(6)=-1/3\\), whereas multiplicativity would require \\(w_1(6)=w_1(2)w_1(3)=-1\\).
 
-[^parry]: For example, [Tomos Parry's 2021 paper](https://doi.org/10.5802/jtnb.1163) ([PDF](https://www.numdam.org/item/10.5802/jtnb.1163.pdf#page=4)) develops stronger variance estimates for squarefree numbers in arithmetic progressions at a fixed modulus, including all residue classes. The improved error terms make the asymptotic valid over a wider range of moduli. Alongside Dehnert's work on the sparse-modulus problem itself, this illustrates how the subject has progressed since my thesis.
+[^parry]: For example, [Tomos Parry's 2021 paper](https://doi.org/10.5802/jtnb.1163) ([PDF](https://www.numdam.org/item/10.5802/jtnb.1163.pdf#page=4)) develops stronger variance estimates for squarefree numbers in arithmetic progressions at a fixed modulus, including all residue classes. An improved error term makes the asymptotic valid over a wider range of moduli. Alongside Dehnert's work on the sparse-modulus problem itself, this illustrates how the subject has progressed since my thesis.
 
 [^manuscript-acceptance]: I accepted the neutral manuscript at round four with both reviewers' `revise` verdicts preserved. One remaining objection concerned my authorisation of a corrected auxiliary convergence statement; another round of model calls could not supply that authorisation. The guided manuscript received two passing reviews at round five before I accepted it.
 
-[^thesis-range]: In a separate comparison on 6 November, after the experiments, Codex also identified a counterexample to the pointwise exponential-sum bound in [Lemma 5.4](/schepke_distribution_of_squarefree_numbers_in_arithmetic_progressions.pdf#page=34). Take \\(f(t)=(t+1)^2\\) and \\(x=4p^4\\) for a large prime \\(p\\). Restricting the sum \\(T_f\\) to \\(x/2<f(k)\le x\\) leaves only \\(h=1\\). Its average over \\(\alpha=a/p^2\\) with \\(a\\) coprime to \\(p\\) has size of order \\(p^3\\): only the terms with \\(p\mid k+1\\) survive. Yet the lemma would bound each of the two partial sums whose difference gives this restricted sum by \\(O(p^2\log p)\\). The pointwise bound therefore fails as stated. This later diagnosis was not an output of either harness run and does not supply a replacement estimate that recovers the thesis's claimed range.
+[^thesis-range]: In a separate comparison on 6 November, after the experiments, Codex also identified a counterexample to the pointwise exponential-sum bound in [Lemma 5.4](/schepke_distribution_of_squarefree_numbers_in_arithmetic_progressions.pdf#page=34). Take \\(f(t)=(t+1)^2\\) and \\(x=4p^4\\) for a large prime \\(p\\). Restricting the sum \\(T_f\\) to \\(x/2<f(k)\le x\\) leaves only \\(h=1\\). Its average over \\(\alpha=a/p^2\\) with \\(a\\) coprime to \\(p\\) has size of order \\(p^3\\): only the terms with \\(p\mid k+1\\) survive. Yet the lemma would bound each of the two partial sums whose difference gives this restricted sum by \\(O(p^2\log p)\\). The pointwise bound therefore fails as stated. This example relies on a repeated factor; it does not refute the bound for polynomials such as \\(k^2+1\\). This later diagnosis was not an output of either harness run and does not supply a replacement estimate that recovers the thesis's claimed range.
 
 [^accounting]: The [main historical ledgers](https://gitlab.com/mshepherd/squarefree-numbers/-/tree/main/archive), including abandoned attempts and the write-up stages, contain 141 invocations, of which 20 failed, about $166.22 in Claude-reported usage and about 632,000 Codex output tokens. Claude's dollar figures resemble API-equivalent usage; they are not additional invoices. The two write-up stages alone accounted for about $103 of that figure. The entire neutral research run, including numerics, planning, proof, review and integration, accounted for about $23, plus 160,000 Codex output tokens.
 
