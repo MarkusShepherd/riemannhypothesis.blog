@@ -304,13 +304,9 @@ There is a lesson here about what an impressive mathematical performance does an
 
 ### Subscriptions and reported costs
 
-The accounting also deserves some care. Both providers were used through $20 subscription plans. Claude's CLI nevertheless reports a dollar figure resembling API-equivalent usage; that is not an additional invoice.
+Both providers were used through $20 subscription plans. Across the archived attempts and write-up stages, **20 of 141 model invocations failed**. Writing and reviewing the manuscripts accounted for most of Claude's reported usage.[^accounting]
 
-Across the [main historical ledgers](https://gitlab.com/mshepherd/squarefree-numbers/-/tree/main/archive), including abandoned attempts and the write-up stages, there were **141 invocations, of which 20 failed**, about **$166.22 in Claude-reported usage** and about **632,000 Codex output tokens**.[^accounting]
-
-The two write-up stages alone accounted for about $103 of the Claude figure. For comparison, the entire neutral research run, including numerics, planning, proof, review and integration, accounted for about $23, plus 160,000 Codex output tokens. Those figures exclude the surrounding operator sessions and my time.
-
-The binding constraint was often waiting for subscription usage to reset. The money-like counter, the number of tokens, elapsed time and the amount of human attention describe different parts of the cost.
+The binding constraint was often waiting for subscription usage to reset.
 
 ## Who is assisting whom?
 
@@ -371,4 +367,6 @@ Fifteen years later, I would quite like to understand my thesis.
 
 [^thesis-range]: In a separate comparison on 6 November, after the experiments, Codex also identified a counterexample to the pointwise exponential-sum bound in [Lemma 5.4](/schepke_distribution_of_squarefree_numbers_in_arithmetic_progressions.pdf#page=34). Take \\(f(t)=(t+1)^2\\) and \\(x=4p^4\\) for a large prime \\(p\\). Restricting the sum \\(T_f\\) to \\(x/2<f(k)\le x\\) leaves only \\(h=1\\). Its average over \\(\alpha=a/p^2\\) with \\(a\\) coprime to \\(p\\) has size of order \\(p^3\\): only the terms with \\(p\mid k+1\\) survive. Yet the lemma would bound each of the two partial sums whose difference gives this restricted sum by \\(O(p^2\log p)\\). The pointwise bound therefore fails as stated. This later diagnosis was not an output of either harness run and does not supply a replacement estimate that recovers the thesis's claimed range.
 
-[^accounting]: Five earlier probes recovered from a local backup bring the totals to 146 invocations, $166.91 in Claude-reported usage and about 634,000 Codex output tokens. The 141-invocation subtotal uses the main archived research and preserved write-up ledgers. Neither figure includes all operator conversations, initial baseline chats, development work or human time.
+[^accounting]: The [main historical ledgers](https://gitlab.com/mshepherd/squarefree-numbers/-/tree/main/archive), including abandoned attempts and the write-up stages, contain 141 invocations, of which 20 failed, about $166.22 in Claude-reported usage and about 632,000 Codex output tokens. Claude's dollar figures resemble API-equivalent usage; they are not additional invoices. The two write-up stages alone accounted for about $103 of that figure. The entire neutral research run, including numerics, planning, proof, review and integration, accounted for about $23, plus 160,000 Codex output tokens.
+
+    Five earlier probes recovered from a local backup bring the totals to 146 invocations, $166.91 in Claude-reported usage and about 634,000 Codex output tokens. Neither figure includes all operator conversations, initial baseline chats, development work or human time.
