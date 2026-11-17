@@ -312,18 +312,6 @@ The two write-up stages alone accounted for about $103 of the Claude figure. For
 
 The binding constraint was often waiting for subscription usage to reset. The money-like counter, the number of tokens, elapsed time and the amount of human attention describe different parts of the cost.
 
-## Beyond a single prompt
-
-### Trying a smaller workflow
-
-You can experiment with this workflow yourself. The practical starting point could be one small claim, a written proposed solution and a fresh session asked to find a specific counterexample or missing assumption. Then inspect what the review actually checked. That is already an experiment in organising work beyond a single conversation.
-
-For a larger project, the useful questions become: what intermediate output would make progress inspectable? What assumptions must the next step receive? What can be checked by a calculation or another external test? What should happen when the proposed statement turns out to be wrong?
-
-Those questions travel beyond mathematics. A decomposition into proposals, explicit assumptions, tests and revision could organise other kinds of investigation too. The checks will differ, and agreement between models will remain much weaker evidence than a check against the world.
-
-I would be reluctant to claim that this setup was optimal. What I gained was a much clearer picture of the process and its failure modes, together with a record that could be examined.
-
 ## Who is assisting whom?
 
 The familiar phrase is “AI-assisted research”. In parts of this experiment I felt closer to an assistant to the AI research: obtaining papers, restarting failed stages, asking other models to explain the outputs and deciding when to move on.
