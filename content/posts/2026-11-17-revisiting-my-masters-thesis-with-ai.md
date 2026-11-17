@@ -3,8 +3,8 @@ title: Revisiting my master's thesis with AI
 subtitle: An experiment in how AI-assisted mathematical research works in practice.
 author: Markus Shepherd
 type: post
-date: 2026-11-14T12:00:00+02:00
-draft: true
+date: 2026-11-17T12:00:00+02:00
+draft: false
 url: /2026/11/revisiting-my-masters-thesis-with-ai/
 categories:
   - Feature
