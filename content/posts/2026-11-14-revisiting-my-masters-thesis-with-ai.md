@@ -144,7 +144,7 @@ There were transcript scans for excluded sources and restrictions on tools, but 
 
 ### Numerical experiments
 
-Next came numerical experiments. Two agents independently wrote code to calculate the variance for three polynomials, including \\(k^2+1\\), at increasingly large values of \\(x\\). The larger computation reached \\(256{,}000{,}000\\). Operator sessions compared the outputs with each other, checked them against direct counts in small cases and reran the code.
+Next came numerical experiments. Two agents independently wrote code to calculate the variance for three polynomials, including \\(k^2+1\\), at increasingly large values of \\(x\\). The larger computation reached \\(256{,}000{,}000\\). I used separate AI sessions outside the harness to compare the outputs, check them against direct counts in small cases and rerun the code.
 
 That supplied a useful constraint on the mathematics. A proof predicting twice the observed leading constant deserved immediate investigation.
 
@@ -266,7 +266,7 @@ Its nine proposition proofs were all written by Claude Sonnet 5.5. Codex contrib
 
 ### The thesis-guided run
 
-For the [second completed experiment](https://gitlab.com/mshepherd/squarefree-numbers/-/tree/main/writeups/zt-thesis-plan) ([PDF](/squarefree-numbers-thesis-guided.pdf)), I had an operator read my thesis and write a light hint encouraging the combination of Vaughan and Brüdern–Wooley. That makes it a thesis-guided comparison, distinct from the neutral run. We reused the accepted numerics and literature.
+For the [second completed experiment](https://gitlab.com/mshepherd/squarefree-numbers/-/tree/main/writeups/zt-thesis-plan) ([PDF](/squarefree-numbers-thesis-guided.pdf)), I asked a separate AI session to read my thesis and write a light hint encouraging the combination of Vaughan and Brüdern–Wooley. That makes it a thesis-guided comparison, distinct from the neutral run. We reused the accepted numerics and literature.
 
 GPT-6.1 Sol wrote its seven final proposition proofs. The result had a more detailed formula describing behaviour when \\(f(y)\\) is comparable with \\(x\\), but a narrower range for the simple power-law asymptotic. For quadratic polynomials, its lower threshold was \\(x^{19/21+\delta}\\), compared with \\(x^{7/9+\delta}\\) in the neutral run.
 
@@ -369,4 +369,4 @@ Fifteen years later, I would quite like to understand my thesis.
 
 [^accounting]: The [main historical ledgers](https://gitlab.com/mshepherd/squarefree-numbers/-/tree/main/archive), including abandoned attempts and the write-up stages, contain 141 invocations, of which 20 failed, about $166.22 in Claude-reported usage and about 632,000 Codex output tokens. Claude's dollar figures resemble API-equivalent usage; they are not additional invoices. The two write-up stages alone accounted for about $103 of that figure. The entire neutral research run, including numerics, planning, proof, review and integration, accounted for about $23, plus 160,000 Codex output tokens.
 
-    Five earlier probes recovered from a local backup bring the totals to 146 invocations, $166.91 in Claude-reported usage and about 634,000 Codex output tokens. Neither figure includes all operator conversations, initial baseline chats, development work or human time.
+    Five earlier probes recovered from a local backup bring the totals to 146 invocations, $166.91 in Claude-reported usage and about 634,000 Codex output tokens. Neither figure includes all the AI conversations outside the harness, initial baseline chats, development work or human time.
