@@ -135,11 +135,9 @@ Its output is a proof file, or a report that the statement is defective. A refer
 
 The agents in my harness do not chat with one another. The driver copies files between stages; those copies determine what each model can know from the experiment. Persistent state lives in those files, so the next session can be fresh.
 
-You can arrange for several sessions to explore different approaches, have other sessions check their work and preserve intermediate results for later use. You decide what information moves between them.
+I limited the system to two simultaneous agent invocations, largely because I was working within ordinary subscription limits. Over the course of the experiment there were many sessions, with different roles. Two at a time was quite enough to keep me occupied.
 
-It also makes the word *swarm* rather grand for my version. I limited the system to two simultaneous agent invocations, largely because I was working within ordinary subscription limits. Over the course of the experiment there were many sessions, with different roles. Two at a time was quite enough to keep me occupied.
-
-This was my own small workflow, rather than a reconstruction of OpenAI's system. Its published account describes communicating groups and redistribution of intermediate results; mine used explicit file handoffs and a mostly fixed sequence of stages. The transferable idea is that the arrangement of the work is itself something you can design.
+OpenAI's published account describes communicating groups and redistribution of intermediate results; mine used explicit file handoffs and a mostly fixed sequence of stages.[^pollination]
 
 ## First find out what to ask the provers
 
@@ -210,7 +208,7 @@ else:
 
 There was also an escape hatch for a prover to say that its assigned proposition was false or ill-posed. A system that insists on receiving a proof of everything it asks is inviting the models to invent one.
 
-If a proposition remained stuck, a further role could examine approaches from other plans and suggest a bridge. We never used that stage in a completed run. Both completed experiments eventually had every proposition pass its two referees in the first mathematical review round.
+Both completed experiments eventually had every proposition pass its two referees in the first mathematical review round.
 
 That sounds wonderfully reassuring. Later checking still found local errors, including an auxiliary convergence statement that was too strong. Two model passes are useful evidence, and fresh contexts prevent some forms of information sharing. They do not make the models statistically independent or give their verdicts the status of formal proof verification.
 
@@ -303,7 +301,7 @@ The [comparison and numerical checks](https://gitlab.com/mshepherd/riemannhypoth
 
 I have not independently reconstructed every proof in these packages. “Accepted” records my decision about the experiment and the manuscript, informed largely by further AI assessments. No formal proof checker verified our results.
 
-## The less glamorous part of the swarm
+## Making the harness work
 
 The proof and review stage of the neutral run took about 23 minutes. Planning took about an hour; the two integrations took another fourteen minutes.
 
@@ -339,9 +337,7 @@ Having an explicit record of those decisions is more informative than smoothing 
 
 ### Trying a smaller workflow
 
-A model session can search for an approach. Another can develop a precisely stated piece of it. Other sessions can inspect that piece without inheriting the first session's whole conversation. Code can test identities and examples. A driver can retain successful intermediate work and arrange the next task.
-
-You can experiment with those choices yourself. The practical starting point could be one small claim, a written proposed solution and a fresh session asked to find a specific counterexample or missing assumption. Then inspect what the review actually checked. That is already an experiment in organising work beyond a single conversation.
+You can experiment with this workflow yourself. The practical starting point could be one small claim, a written proposed solution and a fresh session asked to find a specific counterexample or missing assumption. Then inspect what the review actually checked. That is already an experiment in organising work beyond a single conversation.
 
 For a larger project, the useful questions become: what intermediate output would make progress inspectable? What assumptions must the next step receive? What can be checked by a calculation or another external test? What should happen when the proposed statement turns out to be wrong?
 
@@ -386,6 +382,8 @@ For me, the attraction of mathematics has always included the sheer joy and beau
 A supply of proofs does not use up those experiences. It may give me more opportunities to have them.
 
 Fifteen years later, I would quite like to understand my thesis.
+
+[^pollination]: OpenAI describes [using Codex to consolidate insights from different groups into follow-up prompts](https://openai.com/index/navier-stokes-solution/). My harness had an optional “pollinator” that could inspect other plans to help with a stuck proposition or flag that its statement needed changing. Neither completed run used it.
 
 [^dehnert]: I have been unable to obtain a copy or contact the author. His paper would be a much better benchmark for the AI work than my thesis, having been published in a journal and subjected to a different level of peer review. Unfortunately, I couldn't justify shelling out an unreasonable amount of cash to Springer for a single article. If any reader can help me obtain a copy or reach the author, a comparison with the AI results would make a great follow-up.
 
