@@ -118,6 +118,8 @@ The models also proposed the workflow and wrote the prompts. Deciding how to dec
 
 An agent in this setup is a fresh invocation of a command-line model, using Claude Code or Codex. The underlying commands are `claude -p` and `codex exec`. A Python driver prepares the working folder, supplies a prompt and selected files, starts the process and collects what it produces.
 
+The completed experiments used Claude Opus 5.5, Claude Sonnet 5.5 and GPT-6.1 Sol, mostly at high effort. “High” is a provider's setting, not a common unit of reasoning.
+
 Each invocation receives instructions and source material for a particular task: a planner develops a proof strategy, a prover tackles one proposition and a referee checks a proposed proof.
 
 A prover's folder looks approximately like this:
@@ -273,7 +275,7 @@ x^{7/9+\delta}\le f(y)\le x^{1-\delta},
 
 under the polynomial assumptions in the problem. This matched the lower threshold proposed in the [single-chat sketches](#before-the-harness-two-single-chats), now with the detailed proof and review record described above.
 
-Its nine proposition proofs were all written by Claude Sonnet 5.5. Codex contributed planning, numerical computation, refereeing and integration. Although both providers were configured as provers, the default rotated them by *round*: every proposition began with Claude, and everything passed before a second round. I only fully appreciated the consequence when attempting the next run.
+Its nine proposition proofs were all written by Claude Sonnet 5.5. Codex contributed planning, numerical computation, refereeing and integration. Having a cheaper model write proofs that more expensive models reviewed was a useful configuration. Although both providers were configured as provers, the default rotated them by *round*: every proposition began with Claude, and everything passed before a second round. I only fully appreciated the consequence when attempting the next run.
 
 ### The thesis-guided run
 
@@ -333,11 +335,7 @@ For a larger project, the useful questions become: what intermediate output woul
 
 Those questions travel beyond mathematics. A decomposition into proposals, explicit assumptions, tests and revision could organise other kinds of investigation too. The checks will differ, and agreement between models will remain much weaker evidence than a check against the world.
 
-### Models and effort settings
-
-Different models, versions and effort settings give further choices. The completed experiments used Claude Opus 5.5, Claude Sonnet 5.5 and GPT-6.1 Sol, mostly at high effort. “High” is a provider's setting, not a common unit of reasoning, and a cheaper model writing a proof that more expensive models reviewed was a useful configuration. Our scheduling accident also showed that the configuration file alone does not tell you who actually did the work.
-
-I would be reluctant to claim that this setup was optimal. The single-chat baselines had already proposed the neutral run's headline range. What I gained was a much clearer picture of the process and its failure modes, together with a record that could be examined.
+I would be reluctant to claim that this setup was optimal. What I gained was a much clearer picture of the process and its failure modes, together with a record that could be examined.
 
 ## Who is assisting whom?
 
