@@ -4,7 +4,6 @@ publishdir: public
 themesDir: themes
 
 title: Understanding the Riemann Hypothesis
-canonifyurls: true
 
 DefaultContentLanguage: en
 theme: beautifulhugo
@@ -17,6 +16,8 @@ Params:
     - post
     - posts
   logo: logo.png
+  images:
+    - logo.png
   favicon: favicon.ico
   dateFormat: January 2, 2006
   commit: false
