@@ -98,7 +98,7 @@ So when someone asks you next time how it is to work on primes, just say that it
 
 [^even]: Of course, \\(Y_n\\) can _actually_ only ever be \\(0\\) for even \\(n\\).
 [^iterated]: The law of the iterative logarithm even gives us the value of the implicit constant that the big-O notation surpresses: it's \\(\sqrt{2}\\).
-[^almost]: That is, the number of exceptions will have probability \\(0)\\.
+[^almost]: That is, the number of exceptions will have probability \\(0\\).
 [^big-o]: We entered the realm of big-O where constants don't matter. The zero values of the Möbius function only change the constant, and hence it doesn't matter if we consider the Mertens function _with_ the zero values, or the prime walk _without_ them.
 [^violation]: Though only the _existence_ of a violation is known, but an actual value is beyond the scope of the current calculating power -- yet another example that you can't trust empirical evidence when it comes to primes.
 [^bound]: Just observe that \\(x^{s+it}=O(x^s)\\). Then all you need is a good bound for the denominator.
