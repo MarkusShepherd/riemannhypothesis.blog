@@ -7,7 +7,6 @@ url: /2014/02/infinity-is-worth-no-more-than-112/
 categories:
   - Feature
 tags:
-  - Infinity
   - Series
 ---
 

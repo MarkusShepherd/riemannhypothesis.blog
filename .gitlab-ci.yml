@@ -1,23 +1,32 @@
-# All available Hugo versions are listed here: https://gitlab.com/pages/hugo/container_registry
-image: registry.gitlab.com/pages/hugo:0.122.0
+default:
+  image:
+    name: ghcr.io/gohugoio/hugo:v0.170.1
+    entrypoint: [""]
+  before_script:
+    - hugo version
 
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
-test:
-  script:
-  - hugo
-  artifacts:
-    expire_in: 1 hour
-  except:
-  - master
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH
 
-pages:
+.build:
   script:
-  - hugo
+    - hugo --minify --panicOnWarning
+
+test:
+  extends: .build
+  rules:
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+
+deploy:
+  extends: .build
+  pages: true
   artifacts:
     paths:
-    - public
-    expire_in: 1 week
-  only:
-  - master
+      - public
+    expire_in: 48 hours
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
