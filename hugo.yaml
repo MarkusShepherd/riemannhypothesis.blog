@@ -1,12 +1,6 @@
 baseurl: https://riemannhypothesis.blog/
 
-archetypeDir: archetypes
-assetDir: assets
-contentdir: content
-dataDir: data
-layoutdir: layouts
 publishdir: public
-staticDir: static
 themesDir: themes
 
 title: Understanding the Riemann Hypothesis
@@ -34,26 +28,26 @@ Params:
   socialShare: true
   showRelatedPosts: true
 
+  author:
+    name: Markus Shepherd
+    email: markus@recommend.games
+    website: https://recommend.games/
+    facebook: markus.r.shepherd
+    gitlab: mshepherd
+    github: MarkusShepherd
+    twitter: MarkusRShepherd
+    mastodon: 'tabletop.social/@markus'
+    reddit: MarkusShepherd
+    linkedin: markusschepke
+    stackoverflow: users/2634131/markus-shepherd
+    youtube: user/MarkusSchepke # or channel/channelname
+    paypal: mschepke
+    kaggle: mshepherd
+
 markup:
   goldmark:
     renderer:
       unsafe: true
-
-Author:
-  name: Markus Shepherd
-  email: markus@recommend.games
-  website: https://recommend.games/
-  facebook: markus.r.shepherd
-  gitlab: mshepherd
-  github: MarkusShepherd
-  twitter: MarkusRShepherd
-  mastodon: 'tabletop.social/@markus'
-  reddit: MarkusShepherd
-  linkedin: markusschepke
-  stackoverflow: users/2634131/markus-shepherd
-  youtube: user/MarkusSchepke # or channel/channelname
-  paypal: mschepke
-  kaggle: mshepherd
 
 menu:
   main:
@@ -104,6 +98,36 @@ menu:
     # - name: Categories
     #   url: categories/
     #   weight: 50
+
+# Preserve tag-based recommendations with the v5 related-content engine.
+related:
+  includeNewer: true
+  threshold: 80
+  toLower: false
+  indices:
+    - name: tags
+      weight: 100
+    - name: keywords
+      weight: 80
+    - name: date
+      weight: 10
+
+# Hugo no longer publishes the legacy static symlinks. Mount the canonical
+# PDFs at their historical URLs without storing a second copy of each file.
+module:
+  mounts:
+    - source: static
+      target: static
+    - source: static/schepke_adding_prime_numbers.pdf
+      target: static/wp-content/uploads/2014/10/schepke_adding_prime_numbers.pdf
+    - source: static/schepke_distribution_of_squarefree_numbers_in_arithmetic_progressions.pdf
+      target: static/wp-content/uploads/2014/10/schepke_distribution_of_squarefree_numbers_in_arithmetic_progressions.pdf
+    - source: static/schepke_prime_generating_sequences.pdf
+      target: static/wp-content/uploads/2014/10/schepke_prime_generating_sequences.pdf
+    - source: static/schepke_primzahlerzeugende_folgen.pdf
+      target: static/wp-content/uploads/2014/10/schepke_primzahlerzeugende_folgen.pdf
+    - source: static/schepke_algebraic_number_theory.pdf
+      target: static/wp-content/uploads/2014/12/schepke_algebraic_number_theory.pdf
 
 sitemap:
   changefreq: weekly
